@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright (C) 2022 Nethesis S.r.l.
+# Copyright (C) 2021 Nethesis S.r.l.
 # http://www.nethesis.it - nethserver@nethesis.it
 #
 # This script is part of NethServer.
@@ -20,6 +20,8 @@
 # along with NethServer.  If not, see COPYING.
 #
 
-# If the control reaches this step, the service can be enabled and started
+#
+# Wrapper of occ command
+#
 
-systemctl --user enable --now nextcloud.service
+exec podman exec -ti --user www-data nextcloud-app php ./occ "${@}"

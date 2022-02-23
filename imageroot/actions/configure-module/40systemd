@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+#!/bin/bash
 
 #
-# Copyright (C) 2022 Nethesis S.r.l.
+# Copyright (C) 2021 Nethesis S.r.l.
 # http://www.nethesis.it - nethserver@nethesis.it
 #
 # This script is part of NethServer.
@@ -20,10 +20,11 @@
 # along with NethServer.  If not, see COPYING.
 #
 
-import json
-import sys
-import agent
+set -e
 
-config = {}
+# Redirect any output to the journal (stderr)
+exec 1>&2
 
-json.dump(config, fp=sys.stdout)
+# Enable and restart the service
+systemctl --user enable nextcloud.service
+systemctl --user restart nextcloud.service
