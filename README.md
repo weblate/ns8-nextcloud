@@ -24,18 +24,14 @@ Output example:
 Let's assume that the nextcloud istance is named `nextcloud1`.
 
 Then launch `configure-module`, by setting the following parameters:
-- administrator user
-- administrator password
 - fully qualified domain name for Nextcloud
 - let's encrypt option
-- LDAP domain
+- LDAP domain (optional)
 
 Example:
 ```
 api-cli run configure-module --agent module/nextcloud1 --data - <<EOF
 {
-    "username": "admin",
-    "password": "Nethesis,1234",
     "host": "nextcloud.nethserver.org",
     "lets_encrypt": true,
     "domain": "ad.nethserver.org"
