@@ -6,7 +6,7 @@
       </div>
     </div>
     <!-- sample settings page -->
-    <!-- <div v-if="error.getConfiguration" class="bx--row">
+    <div v-if="error.getConfiguration" class="bx--row">
       <div class="bx--col">
         <NsInlineNotification
           kind="error"
@@ -19,9 +19,8 @@
     <div class="bx--row">
       <div class="bx--col-lg-16">
         <cv-tile :light="true">
-          <cv-form @submit.prevent="saveSettings"> -->
-    <!-- TODO configuration fields -->
-    <!-- <div v-if="error.configureModule" class="bx--row">
+          <cv-form @submit.prevent="saveSettings">
+            <div v-if="error.configureModule" class="bx--row">
               <div class="bx--col">
                 <NsInlineNotification
                   kind="error"
@@ -31,6 +30,41 @@
                 />
               </div>
             </div>
+            <cv-text-input
+              :label="$t('settings.host')"
+              :placeholder="default_host"
+              v-model.trim="host"
+              class="mg-bottom"
+              :invalid-message="$t(error.host)"
+              :disabled="loading.settings"
+              ref="host"
+            >
+            </cv-text-input>
+            <cv-toggle
+              value="letsEncrypt"
+              :label="$t('settings.lets_encrypt')"
+              v-model="isLetsEncryptEnabled"
+              :disabled="loading.settings"
+              class="mg-bottom"
+            >
+              <template slot="text-left">{{
+                $t("settings.disabled")
+              }}</template>
+              <template slot="text-right">{{
+                $t("settings.enabled")
+              }}</template>
+            </cv-toggle>
+            <cv-text-input
+              :label="$t('settings.domain')"
+              placeholder=""
+              v-model.trim="domain"
+              class="mg-bottom"
+              :invalid-message="$t(error.domain)"
+              :disabled="loading.settings"
+              ref="domain"
+            >
+            </cv-text-input>
+
             <NsButton
               kind="primary"
               :icon="Save20"
@@ -41,12 +75,12 @@
           </cv-form>
         </cv-tile>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-// import to from "await-to-js";
+import to from "await-to-js";
 import { mapState } from "vuex";
 import {
   QueryParamService,
@@ -74,13 +108,17 @@ export default {
         getConfiguration: "",
         configureModule: "",
       },
+      host: "",
+      default_host: "",
+      isHttpToHttpsEnabled: false,
+      domain: ""
     };
   },
   computed: {
     ...mapState(["instanceName", "core", "appName"]),
   },
   created() {
-    // this.getConfiguration();
+    this.getConfiguration();
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -93,96 +131,100 @@ export default {
     next();
   },
   methods: {
-    // async getConfiguration() {
-    //   this.loading.settings = true;
-    //   this.error.getConfiguration = "";
-    //   const taskAction = "get-configuration";
-    //   // register to task completion
-    //   this.core.$root.$once(
-    //     taskAction + "-completed",
-    //     this.getConfigurationCompleted
-    //   );
-    //   const res = await to(
-    //     this.createModuleTaskForApp(this.instanceName, {
-    //       action: taskAction,
-    //       extra: {
-    //         title: this.$t("action." + taskAction),
-    //         isNotificationHidden: true,
-    //       },
-    //     })
-    //   );
-    //   const err = res[0];
-    //   if (err) {
-    //     console.error(`error creating task ${taskAction}`, err);
-    //     this.error.getConfiguration = this.getErrorMessage(err);
-    //     return;
-    //   }
-    // },
-    // validateSaveSettings() {
-    //   this.clearErrors(this);
-    //   let isValidationOk = true;
-    //   // TODO validate settings
-    //   return isValidationOk;
-    // },
-    // saveSettingsValidationFailed(validationErrors) {
-    //   this.loading.settings = false;
-    //   for (const validationError of validationErrors) {
-    //     const param = validationError.parameter;
-    //     // set i18n error message
-    //     this.error[param] = "settings." + validationError.error;
-    //   }
-    // },
-    // async saveSettings() {
-    //   const isValidationOk = this.validateSaveSettings();
-    //   if (!isValidationOk) {
-    //     return;
-    //   }
-    //   this.loading.settings = true;
-    //   const taskAction = "configure-module";
-    //   // register to task validation
-    //   this.core.$root.$off(taskAction + "-validation-failed");
-    //   this.core.$root.$once(
-    //     taskAction + "-validation-failed",
-    //     this.saveSettingsValidationFailed
-    //   );
-    //   // register to task completion
-    //   this.core.$root.$off(taskAction + "-completed");
-    //   this.core.$root.$once(
-    //     taskAction + "-completed",
-    //     this.saveSettingsCompleted
-    //   );
-    //   const res = await to(
-    //     this.createModuleTaskForApp(this.instanceName, {
-    //       action: taskAction,
-    //       data: {
-    //         // TODO
-    //       },
-    //       extra: {
-    //         title: this.$t("settings.instance_configuration", {
-    //           instance: this.instanceName,
-    //         }),
-    //         description: this.$t("settings.configuring"),
-    //       },
-    //     })
-    //   );
-    //   const err = res[0];
-    //   if (err) {
-    //     console.error(`error creating task ${taskAction}`, err);
-    //     this.error.configureModule = this.getErrorMessage(err);
-    //     this.loading.settings = false;
-    //     return;
-    //   }
-    // },
-    // getConfigurationCompleted(taskContext, taskResult) {
-    //   const config = taskResult.output;
-    //   // TODO
-    //   this.focusElement("wikiName");
-    // },
-    // saveSettingsCompleted() {
-    //   this.loading.settings = false;
-    //   // reload configuration
-    //   this.getConfiguration();
-    // },
+    async getConfiguration() {
+      this.loading.settings = true;
+      this.error.getConfiguration = "";
+      const taskAction = "get-configuration";
+      // register to task completion
+      this.core.$root.$once(
+        taskAction + "-completed",
+        this.getConfigurationCompleted
+      );
+      const res = await to(
+        this.createModuleTaskForApp(this.instanceName, {
+          action: taskAction,
+          extra: {
+            title: this.$t("action." + taskAction),
+            isNotificationHidden: true,
+          },
+        })
+      );
+      const err = res[0];
+      if (err) {
+        console.error(`error creating task ${taskAction}`, err);
+        this.error.getConfiguration = this.getErrorMessage(err);
+        return;
+      }
+    },
+    validateSaveSettings() {
+      this.clearErrors(this);
+      let isValidationOk = true;
+      return isValidationOk;
+    },
+    saveSettingsValidationFailed(validationErrors) {
+      this.loading.settings = false;
+      for (const validationError of validationErrors) {
+        const param = validationError.parameter;
+        // set i18n error message
+        this.error[param] = "settings." + validationError.error;
+      }
+    },
+    async saveSettings() {
+      const isValidationOk = this.validateSaveSettings();
+      if (!isValidationOk) {
+        return;
+      }
+      this.loading.settings = true;
+      const taskAction = "configure-module";
+      // register to task validation
+      this.core.$root.$off(taskAction + "-validation-failed");
+      this.core.$root.$once(
+        taskAction + "-validation-failed",
+        this.saveSettingsValidationFailed
+      );
+      // register to task completion
+      this.core.$root.$off(taskAction + "-completed");
+      this.core.$root.$once(
+        taskAction + "-completed",
+        this.saveSettingsCompleted
+      );
+      const res = await to(
+        this.createModuleTaskForApp(this.instanceName, {
+          action: taskAction,
+          data: {
+            host: this.host,
+            lets_encrypt: this.isLetsEncryptEnabled,
+            domain: this.domain
+          },
+          extra: {
+            title: this.$t("settings.instance_configuration", {
+              instance: this.instanceName,
+            }),
+            description: this.$t("settings.configuring"),
+          },
+        })
+      );
+      const err = res[0];
+      if (err) {
+        console.error(`error creating task ${taskAction}`, err);
+        this.error.configureModule = this.getErrorMessage(err);
+        this.loading.settings = false;
+        return;
+      }
+    },
+    getConfigurationCompleted(taskContext, taskResult) {
+      const config = taskResult.output;
+      this.host = config.host;
+      this.isLetsEncryptEnabled = config.lets_encrypt;
+      this.default_host = "nextcloud."+config.default_domain;
+      this.loading.settings = false;
+      this.focusElement("host");
+    },
+    saveSettingsCompleted() {
+      this.loading.settings = false;
+      // reload configuration
+      this.getConfiguration();
+    },
   },
 };
 </script>

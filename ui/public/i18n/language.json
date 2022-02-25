@@ -20,7 +20,15 @@
     "no_volumes": "No volumes"
   },
   "settings": {
-    "title": "Settings"
+    "title": "Settings",
+    "host": "Host name",
+    "disabled": "Disabled",
+    "enabled": "Enabled",
+    "save": "Save",
+    "instance_configuration": "Instance configuration",
+    "configuring": "Configuration in progress ...",
+    "lets_encrypt": "Let's Encrypt certificate",
+    "domain": "LDAP/AD domain"
   },
   "about": {
     "title": "About"
