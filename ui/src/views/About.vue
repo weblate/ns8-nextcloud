@@ -222,7 +222,8 @@ export default {
         this.createClusterTaskForApp({
           action: taskAction,
           data: {
-            id: "nextcloud", // TODO
+            name: this.appName,
+            id: this.instanceName
           },
           extra: {
             title: this.$t("action." + taskAction),
@@ -304,7 +305,6 @@ export default {
 
 .app-logo {
   width: 4rem;
-  height: 4rem;
   margin-right: $spacing-05;
   flex-shrink: 0;
 }
