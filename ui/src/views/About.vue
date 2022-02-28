@@ -210,7 +210,7 @@ export default {
   methods: {
     async getModuleInfo() {
       this.loading.moduleInfo = true;
-      const taskAction = "get-module-info";
+      const taskAction = "get-info";
 
       // register to task completion
       this.core.$root.$once(
@@ -219,12 +219,8 @@ export default {
       );
 
       const res = await to(
-        this.createClusterTaskForApp({
+        this.createModuleTaskForApp(this.instanceName,{
           action: taskAction,
-          data: {
-            name: this.appName,
-            id: this.instanceName
-          },
           extra: {
             title: this.$t("action." + taskAction),
             isNotificationHidden: true,
