@@ -28,7 +28,8 @@
     "instance_configuration": "Instance configuration",
     "configuring": "Configuration in progress ...",
     "lets_encrypt": "Let's Encrypt certificate",
-    "domain": "LDAP/AD domain"
+    "domain": "LDAP/AD domain",
+    "no_domain": "No domain"
   },
   "about": {
     "title": "About"

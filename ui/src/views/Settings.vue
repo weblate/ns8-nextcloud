@@ -54,16 +54,17 @@
                 $t("settings.enabled")
               }}</template>
             </cv-toggle>
-            <cv-text-input
-              :label="$t('settings.domain')"
-              placeholder=""
-              v-model.trim="domain"
-              class="mg-bottom"
-              :invalid-message="$t(error.domain)"
-              :disabled="loading.settings"
+            <cv-combo-box
+              v-model="domain"
+              :options="domains"
+              auto-highlight
+              :title="$t('settings.domain')"
+              :invalid-message="$t(error.listUserDomains)"
+              :disabled="loading.settings || loading.domains"
+              light
               ref="domain"
             >
-            </cv-text-input>
+            </cv-combo-box>
 
             <NsButton
               kind="primary"
@@ -103,15 +104,18 @@ export default {
       urlCheckInterval: null,
       loading: {
         settings: true,
+        domains: true
       },
       error: {
         getConfiguration: "",
         configureModule: "",
+        listUserDomains: ""
       },
       host: "",
       default_host: "",
-      isHttpToHttpsEnabled: false,
-      domain: ""
+      isLetsEncryptEnabled: false,
+      domain: "",
+      domains: []
     };
   },
   computed: {
@@ -119,6 +123,7 @@ export default {
   },
   created() {
     this.getConfiguration();
+    this.listUserDomains();
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -153,6 +158,31 @@ export default {
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.getConfiguration = this.getErrorMessage(err);
+        return;
+      }
+    },
+    async listUserDomains() {
+      this.loading.domains = true
+      this.error.listUserDomains = "";
+      const taskAction = "list-user-domains";
+      // register to task completion
+      this.core.$root.$once(
+        taskAction + "-completed",
+        this.listUserDomainsCompleted
+      );
+      const res = await to(
+        this.createClusterTaskForApp({
+          action: taskAction,
+          extra: {
+            title: this.$t("action." + taskAction),
+            isNotificationHidden: true,
+          },
+        })
+      );
+      const err = res[0];
+      if (err) {
+        console.error(`error creating task ${taskAction}`, err);
+        this.error.listUserDomains = this.getErrorMessage(err);
         return;
       }
     },
@@ -219,6 +249,25 @@ export default {
       this.default_host = "nextcloud."+config.default_domain;
       this.loading.settings = false;
       this.focusElement("host");
+    },
+    listUserDomainsCompleted(taskContext, taskResult) {
+      const domains = taskResult.output;
+      this.domains = [
+        {
+          name: "nodomain",
+          label: this.$t('settings.no_domain'),
+          value: ""
+        }
+      ]
+      domains['domains'].forEach(element => {
+        const option = {
+          name: element['name'],
+          label: element['name'],
+          value: element['name'],
+        };
+        this.domains.push(option);
+      });
+      this.loading.domains = false;
     },
     saveSettingsCompleted() {
       this.loading.settings = false;
