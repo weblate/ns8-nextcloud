@@ -16,6 +16,17 @@
         />
       </div>
     </div>
+    <div v-if="!loading.settings && running && !installed" class="bx--row">
+      <div class="bx--col-lg-16">
+        <cv-toast-notification
+          :title="$t('settings.first_config_title')"
+          :sub-title="$t('settings.first_config_body')"
+          :caption="nextcloud_link"
+          :low-contrast="style.lowContrast"
+          :hide-close-button="style.hideClose"
+        ></cv-toast-notification>
+      </div>
+    </div>
     <div class="bx--row">
       <div class="bx--col-lg-16">
         <cv-tile :light="true">
@@ -55,6 +66,7 @@
               }}</template>
             </cv-toggle>
             <cv-combo-box
+              v-if="installed"
               v-model="domain"
               :options="domains"
               auto-highlight
@@ -104,12 +116,16 @@ export default {
       urlCheckInterval: null,
       loading: {
         settings: true,
-        domains: true
+        domains: true,
       },
       error: {
         getConfiguration: "",
         configureModule: "",
-        listUserDomains: ""
+        listUserDomains: "",
+      },
+      style: {
+        lowContrast: true,
+        hideClose: true
       },
       host: "",
       default_host: "",
@@ -118,10 +134,13 @@ export default {
       domains: [
         {
           name: "nodomain",
-          label: this.$t('settings.no_domain'),
-          value: ""
-        }
+          label: this.$t("settings.no_domain"),
+          value: "",
+        },
       ],
+      installed: false,
+      running: false,
+      nextcloud_link: ""
     };
   },
   computed: {
@@ -168,7 +187,7 @@ export default {
       }
     },
     async listUserDomains() {
-      this.loading.domains = true
+      this.loading.domains = true;
       this.error.listUserDomains = "";
       const taskAction = "list-user-domains";
       // register to task completion
@@ -230,7 +249,7 @@ export default {
           data: {
             host: this.host,
             lets_encrypt: this.isLetsEncryptEnabled,
-            domain: this.domain
+            domain: this.domain,
           },
           extra: {
             title: this.$t("settings.instance_configuration", {
@@ -252,18 +271,23 @@ export default {
       const config = taskResult.output;
       this.host = config.host;
       this.isLetsEncryptEnabled = config.lets_encrypt;
-      this.default_host = "nextcloud."+config.default_domain;
+      this.default_host = "nextcloud." + config.default_domain;
+      this.running = config.running;
+      this.installed = config.installed;
       this.loading.settings = false;
+      if (this.host) {
+        this.nextcloud_link = `${this.$t("settings.open_link")}: <a href='https://${this.host}' target='_blank'>${this.host}</a>`;
+      }
       this.focusElement("host");
     },
     listUserDomainsCompleted(taskContext, taskResult) {
       const domains = taskResult.output;
 
-      domains['domains'].forEach(element => {
+      domains["domains"].forEach((element) => {
         const option = {
-          name: element['name'],
-          label: element['name'],
-          value: element['name'],
+          name: element["name"],
+          label: element["name"],
+          value: element["name"],
         };
         this.domains.push(option);
       });

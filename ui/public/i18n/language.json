@@ -30,7 +30,10 @@
     "lets_encrypt": "Let's Encrypt certificate",
     "domain": "LDAP/AD domain",
     "no_domain": "No LDAP/AD domain",
-    "host_string_gte": "The host name can't be empty"
+    "host_string_gte": "The host name can't be empty",
+    "first_config_title": "Run first configuration wizard",
+    "first_config_body": "Nexcloud is running but needs to be configured. Access the link below and complete the configuration. After, return to this page if you want to connect Nextcloud authentication to a domain.",
+    "open_link": "Open"
   },
   "about": {
     "title": "About"

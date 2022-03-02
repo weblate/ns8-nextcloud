@@ -29,6 +29,7 @@ import sys
 import json
 import agent
 import socket
+import subprocess
 
 # Prepare return variable
 config = {}
@@ -43,6 +44,21 @@ try:
     config['default_domain'] = socket.getfqdn().partition('.')[2]
 except:
     config['default_domain'] = 'nethserver.loc'
+
+# Check if Nextcloud is already installed
+try:
+    cmd = ['podman', 'exec', '--user', 'www-data', 'nextcloud-app', 'php', './occ', 'status', '--output', 'json']
+    p = subprocess.run(cmd, capture_output=True)
+    status = json.loads(p.stdout)
+    config["installed"] = status["installed"]
+except:
+    config["installed"] = False
+
+try:
+    p = subprocess.run(['systemctl', '--user', 'is-active', '-q', 'nextcloud'])
+    config['running'] = (p.returncode == 0)
+except:
+    config['running'] = False
 
 # Dump the configuratio to stdou
 json.dump(config, fp=sys.stdout)
