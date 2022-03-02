@@ -29,7 +29,8 @@
     "configuring": "Configuration in progress ...",
     "lets_encrypt": "Let's Encrypt certificate",
     "domain": "LDAP/AD domain",
-    "no_domain": "No domain"
+    "no_domain": "No LDAP/AD domain",
+    "host_string_gte": "The host name can't be empty"
   },
   "about": {
     "title": "About"

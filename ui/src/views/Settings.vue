@@ -61,11 +61,11 @@
               :title="$t('settings.domain')"
               :invalid-message="$t(error.listUserDomains)"
               :disabled="loading.settings || loading.domains"
+              :label="$t('settings.no_domain')"
               light
               ref="domain"
             >
             </cv-combo-box>
-
             <NsButton
               kind="primary"
               :icon="Save20"
@@ -115,7 +115,13 @@ export default {
       default_host: "",
       isLetsEncryptEnabled: false,
       domain: "",
-      domains: []
+      domains: [
+        {
+          name: "nodomain",
+          label: this.$t('settings.no_domain'),
+          value: ""
+        }
+      ],
     };
   },
   computed: {
@@ -252,13 +258,7 @@ export default {
     },
     listUserDomainsCompleted(taskContext, taskResult) {
       const domains = taskResult.output;
-      this.domains = [
-        {
-          name: "nodomain",
-          label: this.$t('settings.no_domain'),
-          value: ""
-        }
-      ]
+
       domains['domains'].forEach(element => {
         const option = {
           name: element['name'],
