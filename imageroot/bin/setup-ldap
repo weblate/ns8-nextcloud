@@ -37,7 +37,7 @@ from agent.ldapproxy import Ldapproxy
 # Execute occ command
 # It returns the process exit code and output
 def occ(args):
-    cmd = ['podman', 'exec', '-ti', '--user', 'www-data', 'nextcloud-app', 'php', './occ']
+    cmd = ['podman', 'exec', '--user', 'www-data', 'nextcloud-app', 'php', './occ']
     p = subprocess.run(cmd + args, capture_output=True)
     return (p.returncode, p.stdout)
 
@@ -49,6 +49,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 data = json.loads(sys.argv[1])
+commands = []
 
 if not data["domain"]:
     # nothing to do
@@ -57,17 +58,17 @@ if not data["domain"]:
 lp = Ldapproxy()
 domain = lp.get_domain(data["domain"])
 
-max_tries = 100
+max_tries = 60
 i = 0
 while i < max_tries:
-    print(f"setup-ldap: waiting for nextcloud-app ({i})", file=sys.stderr)
-    time.sleep(1)
     i = i+1
     try:
         ret, out = occ(["status", "--output", "json"])
         status = json.loads(out)
         if status["installed"]:
             break
+        print(f"setup-ldap: waiting for nextcloud-app ({i})", file=sys.stderr)
+        time.sleep(1)
     except Exception as e:
         continue
 
