@@ -5,7 +5,6 @@
         <h2>{{ $t("status.title") }}</h2>
       </div>
     </div>
-    <!-- sample status page -->
     <div v-if="error.getStatus" class="bx--row">
       <div class="bx--col">
         <NsInlineNotification
@@ -19,40 +18,29 @@
     <div class="bx--row">
       <div class="bx--col-md-4 bx--col-max-4">
         <NsInfoCard
-          v-if="!loading.status"
           light
-          :title="status.instance"
+          :title="status ? status.instance : ''"
           :description="$t('status.app_instance')"
           :icon="Application32"
+          :loading="loading.status"
           class="min-height-card"
         />
-        <cv-tile v-else light>
-          <cv-skeleton-text
-            :paragraph="true"
-            :line-count="4"
-          ></cv-skeleton-text>
-        </cv-tile>
       </div>
       <div class="bx--col-md-4 bx--col-max-4">
         <NsInfoCard
-          v-if="!loading.status"
           light
-          :title="$t('status.node') + ' ' + status.node"
+          :title="installationNodeTitle"
+          :titleTooltip="installationNodeTitleTooltip"
           :description="$t('status.installation_node')"
           :icon="Chip32"
+          :loading="loading.status"
           class="min-height-card"
         />
-        <cv-tile v-else light>
-          <cv-skeleton-text
-            :paragraph="true"
-            :line-count="4"
-          ></cv-skeleton-text>
-        </cv-tile>
       </div>
       <div class="bx--col-md-4 bx--col-max-4">
         <NsBackupCard
           :title="core.$t('backup.title')"
-          :noBackupMessage="core.$t('backup.no_backup')"
+          :noBackupMessage="core.$t('backup.no_backup_configured')"
           :scheduleBackupLabel="core.$t('backup.configure')"
           :goToBackupLabel="core.$t('backup.go_to_backup')"
           :repositoryLabel="core.$t('backup.repository')"
@@ -72,6 +60,19 @@
           :backups="backups"
           :loading="loading.listBackupRepositories || loading.listBackups"
           :coreContext="core"
+          light
+        />
+      </div>
+      <div class="bx--col-md-4 bx--col-max-4">
+        <NsSystemLogsCard
+          :title="core.$t('system_logs.card_title')"
+          :description="
+            core.$t('system_logs.card_description', { name: instanceName })
+          "
+          :buttonLabel="core.$t('system_logs.card_button_label')"
+          :router="core.$router"
+          context="module"
+          :moduleId="instanceName"
           light
         />
       </div>
@@ -262,6 +263,24 @@ export default {
   },
   computed: {
     ...mapState(["instanceName", "instanceLabel", "core", "appName"]),
+    installationNodeTitle() {
+      if (this.status && this.status.node) {
+        if (this.status.node_ui_name) {
+          return this.status.node_ui_name;
+        } else {
+          return this.$t("status.node") + " " + this.status.node;
+        }
+      } else {
+        return "";
+      }
+    },
+    installationNodeTitleTooltip() {
+      if (this.status && this.status.node_ui_name) {
+        return this.$t("status.node") + " " + this.status.node;
+      } else {
+        return "";
+      }
+    },
   },
   created() {
     this.getStatus();
@@ -292,10 +311,7 @@ export default {
       this.error.getStatus = "";
       const taskAction = "get-status";
       // register to task completion
-      this.core.$root.$once(
-        taskAction + "-completed",
-        this.getStatusCompleted
-      );
+      this.core.$root.$once(taskAction + "-completed", this.getStatusCompleted);
       const res = await to(
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
@@ -320,13 +336,13 @@ export default {
       this.loading.listBackupRepositories = true;
       this.error.listBackupRepositories = "";
       const taskAction = "list-backup-repositories";
-    
+
       // register to task completion
       this.core.$root.$once(
         taskAction + "-completed",
         this.listBackupRepositoriesCompleted
       );
-    
+
       const res = await to(
         this.createClusterTaskForApp({
           action: taskAction,
@@ -337,7 +353,7 @@ export default {
         })
       );
       const err = res[0];
-    
+
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.listBackupRepositories = this.getErrorMessage(err);
@@ -356,13 +372,13 @@ export default {
       this.loading.listBackups = true;
       this.error.listBackups = "";
       const taskAction = "list-backups";
-    
+
       // register to task completion
       this.core.$root.$once(
         taskAction + "-completed",
         this.listBackupsCompleted
       );
-    
+
       const res = await to(
         this.createClusterTaskForApp({
           action: taskAction,
@@ -373,7 +389,7 @@ export default {
         })
       );
       const err = res[0];
-    
+
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.listBackups = this.getErrorMessage(err);
@@ -383,20 +399,20 @@ export default {
     listBackupsCompleted(taskContext, taskResult) {
       let backups = taskResult.output.backups;
       backups.sort(this.sortByProperty("name"));
-    
+
       // repository name
-    
+
       for (const backup of backups) {
         const repo = this.backupRepositories.find(
           (r) => r.id == backup.repository
         );
-    
+
         if (repo) {
           backup.repoName = repo.name;
         }
       }
       this.backups = backups;
-    
+
       this.loading.listBackups = false;
     },
   },
@@ -406,8 +422,8 @@ export default {
 <style scoped lang="scss">
 @import "../styles/carbon-utils";
 
-// .break-word {
-//   word-wrap: break-word;
-//   max-width: 30vw;
-// }
+.break-word {
+  word-wrap: break-word;
+  max-width: 30vw;
+}
 </style>

@@ -125,7 +125,7 @@ export default {
       },
       style: {
         lowContrast: true,
-        hideClose: true
+        hideClose: true,
       },
       host: "",
       default_host: "",
@@ -140,7 +140,7 @@ export default {
       ],
       installed: false,
       running: false,
-      nextcloud_link: ""
+      nextcloud_link: "",
     };
   },
   computed: {
@@ -165,11 +165,21 @@ export default {
       this.loading.settings = true;
       this.error.getConfiguration = "";
       const taskAction = "get-configuration";
+
+      // register to task error
+      this.core.$root.$off(taskAction + "-aborted");
+      this.core.$root.$once(
+        taskAction + "-aborted",
+        this.getConfigurationAborted
+      );
+
       // register to task completion
+      this.core.$root.$off(taskAction + "-completed");
       this.core.$root.$once(
         taskAction + "-completed",
         this.getConfigurationCompleted
       );
+
       const res = await to(
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
@@ -183,18 +193,34 @@ export default {
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.getConfiguration = this.getErrorMessage(err);
+        this.loading.settings = false;
         return;
       }
+    },
+    getConfigurationAborted(taskResult, taskContext) {
+      console.error(`${taskContext.action} aborted`, taskResult);
+      this.error.getConfiguration = this.core.$t("error.generic_error");
+      this.loading.settings = false;
     },
     async listUserDomains() {
       this.loading.domains = true;
       this.error.listUserDomains = "";
       const taskAction = "list-user-domains";
+
+      // register to task error
+      this.core.$root.$off(taskAction + "-aborted");
+      this.core.$root.$once(
+        taskAction + "-aborted",
+        this.listUserDomainsAborted
+      );
+
       // register to task completion
+      this.core.$root.$off(taskAction + "-completed");
       this.core.$root.$once(
         taskAction + "-completed",
         this.listUserDomainsCompleted
       );
+
       const res = await to(
         this.createClusterTaskForApp({
           action: taskAction,
@@ -208,8 +234,14 @@ export default {
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.listUserDomains = this.getErrorMessage(err);
+        this.loading.domains = false;
         return;
       }
+    },
+    listUserDomainsAborted(taskResult, taskContext) {
+      console.error(`${taskContext.action} aborted`, taskResult);
+      this.error.getConfiguration = this.core.$t("error.generic_error");
+      this.loading.domains = false;
     },
     validateSaveSettings() {
       this.clearErrors(this);
@@ -231,18 +263,25 @@ export default {
       }
       this.loading.settings = true;
       const taskAction = "configure-module";
+
+      // register to task error
+      this.core.$root.$off(taskAction + "-aborted");
+      this.core.$root.$once(taskAction + "-aborted", this.saveSettingsAborted);
+
       // register to task validation
       this.core.$root.$off(taskAction + "-validation-failed");
       this.core.$root.$once(
         taskAction + "-validation-failed",
         this.saveSettingsValidationFailed
       );
+
       // register to task completion
       this.core.$root.$off(taskAction + "-completed");
       this.core.$root.$once(
         taskAction + "-completed",
         this.saveSettingsCompleted
       );
+
       const res = await to(
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
@@ -267,6 +306,11 @@ export default {
         return;
       }
     },
+    saveSettingsAborted(taskResult, taskContext) {
+      console.error(`${taskContext.action} aborted`, taskResult);
+      this.error.getConfiguration = this.core.$t("error.generic_error");
+      this.loading.settings = false;
+    },
     getConfigurationCompleted(taskContext, taskResult) {
       const config = taskResult.output;
       this.host = config.host;
@@ -276,7 +320,9 @@ export default {
       this.installed = config.installed;
       this.loading.settings = false;
       if (this.host) {
-        this.nextcloud_link = `${this.$t("settings.open_link")}: <a href='https://${this.host}' target='_blank'>${this.host}</a>`;
+        this.nextcloud_link = `${this.$t(
+          "settings.open_link"
+        )}: <a href='https://${this.host}' target='_blank'>${this.host}</a>`;
       }
       this.focusElement("host");
     },
