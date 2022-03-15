@@ -28,13 +28,17 @@ import json
 import agent
 import agent.tasks
 
-# Try to parse the stdin as JSON.
-# If parsing fails, output everything to stderr
-data = json.load(sys.stdin)
+
+config = {}
+
+# Read current configuration from config file
+# Do not use the STDIN, so we can reuse this action also inside the restore
+with open('config.json', 'r') as cf:
+    config = json.loads(cf.read())
 
 # Setup default values
-host = data["host"]
-le = data["lets_encrypt"]
+host = config["host"]
+le = config["lets_encrypt"]
 
 # Talk with agent using file descriptor.
 # Setup configuration from user input.
