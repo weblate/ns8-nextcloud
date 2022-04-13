@@ -57,6 +57,9 @@ if not data["domain"]:
 
 lp = Ldapproxy()
 domain = lp.get_domain(data["domain"])
+if not domain:
+    print(f'Domain not found: {data["domain"]}', file=sys.stderr)
+    sys.exit(1)
 
 max_tries = 60
 i = 0
