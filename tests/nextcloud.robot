@@ -24,6 +24,6 @@ Check if nextcloud is removed correctly
 
 *** Keywords ***
 Ping nextcloud
-    ${rc} =    Execute Command    sleep 10 && curl -f -k -H "Host: nextcloud.test.local" https://127.0.0.1
-    ...    return_rc=True  return_stdout=False
+    ${out}  ${err}  ${rc} =    Execute Command    curl -f -k -H "Host: nextcloud.test.local" https://127.0.0.1
+    ...    return_rc=True  return_stdout=True  return_stderr=True
     Should Be Equal As Integers    ${rc}  0
