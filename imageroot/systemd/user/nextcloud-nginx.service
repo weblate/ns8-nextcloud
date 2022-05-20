@@ -1,9 +1,7 @@
 
 [Unit]
 Description=Podman nextcloud-nginx.service
-BindsTo=nextcloud.service
 After=nextcloud-app.service
-Requires=nextcloud-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n

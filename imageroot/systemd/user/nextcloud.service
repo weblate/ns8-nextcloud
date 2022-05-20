@@ -1,6 +1,5 @@
 [Unit]
 Description=Podman nextcloud.service
-Requires=nextcloud-app.service nextcloud-db.service nextcloud-redis.service nextcloud-nginx.service
 Before=nextcloud-app.service nextcloud-db.service nextcloud-redis.service nextcloud-nginx.service
 
 [Service]
