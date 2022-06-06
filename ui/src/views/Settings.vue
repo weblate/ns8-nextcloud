@@ -16,15 +16,24 @@
         />
       </div>
     </div>
-    <div v-if="!loading.settings && running && !installed" class="bx--row">
+    <div
+      v-if="
+        !loading.getConfiguration &&
+        !loading.configureModule &&
+        running &&
+        !installed
+      "
+      class="bx--row"
+    >
       <div class="bx--col-lg-16">
-        <cv-toast-notification
+        <NsInlineNotification
           :title="$t('settings.first_config_title')"
-          :sub-title="$t('settings.first_config_body')"
-          :caption="nextcloud_link"
+          :description="$t('settings.first_config_body')"
           :low-contrast="style.lowContrast"
           :hide-close-button="style.hideClose"
-        ></cv-toast-notification>
+          :actionLabel="$t('settings.configure_nextcloud')"
+          @action="goToNextcloudWizard"
+        />
       </div>
     </div>
     <div class="bx--row">
@@ -47,7 +56,7 @@
               v-model.trim="host"
               class="mg-bottom"
               :invalid-message="$t(error.host)"
-              :disabled="loading.settings"
+              :disabled="loadingUi"
               ref="host"
             >
             </cv-text-input>
@@ -55,7 +64,7 @@
               value="letsEncrypt"
               :label="$t('settings.lets_encrypt')"
               v-model="isLetsEncryptEnabled"
-              :disabled="loading.settings"
+              :disabled="loadingUi"
               class="mg-bottom"
             >
               <template slot="text-left">{{
@@ -72,7 +81,7 @@
               auto-highlight
               :title="$t('settings.domain')"
               :invalid-message="$t(error.listUserDomains)"
-              :disabled="loading.settings || loading.domains"
+              :disabled="loadingUi"
               :label="$t('settings.no_domain')"
               light
               ref="domain"
@@ -81,8 +90,9 @@
             <NsButton
               kind="primary"
               :icon="Save20"
-              :loading="loading.settings"
-              :disabled="loading.settings"
+              :loading="loading.configureModule"
+              :disabled="loadingUi"
+              class="mg-top-md"
               >{{ $t("settings.save") }}</NsButton
             >
           </cv-form>
@@ -115,8 +125,9 @@ export default {
       },
       urlCheckInterval: null,
       loading: {
-        settings: true,
-        domains: true,
+        getConfiguration: true,
+        configureModule: false,
+        listUserDomains: true,
       },
       error: {
         getConfiguration: "",
@@ -124,7 +135,7 @@ export default {
         listUserDomains: "",
       },
       style: {
-        lowContrast: true,
+        lowContrast: false,
         hideClose: true,
       },
       host: "",
@@ -145,6 +156,13 @@ export default {
   },
   computed: {
     ...mapState(["instanceName", "core", "appName"]),
+    loadingUi() {
+      return (
+        this.loading.getConfiguration ||
+        this.loading.listUserDomains ||
+        this.loading.configureModule
+      );
+    },
   },
   created() {
     this.getConfiguration();
@@ -162,7 +180,7 @@ export default {
   },
   methods: {
     async getConfiguration() {
-      this.loading.settings = true;
+      this.loading.getConfiguration = true;
       this.error.getConfiguration = "";
       const taskAction = "get-configuration";
 
@@ -193,17 +211,17 @@ export default {
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.getConfiguration = this.getErrorMessage(err);
-        this.loading.settings = false;
+        this.loading.getConfiguration = false;
         return;
       }
     },
     getConfigurationAborted(taskResult, taskContext) {
       console.error(`${taskContext.action} aborted`, taskResult);
       this.error.getConfiguration = this.core.$t("error.generic_error");
-      this.loading.settings = false;
+      this.loading.getConfiguration = false;
     },
     async listUserDomains() {
-      this.loading.domains = true;
+      this.loading.listUserDomains = true;
       this.error.listUserDomains = "";
       const taskAction = "list-user-domains";
 
@@ -234,14 +252,14 @@ export default {
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.listUserDomains = this.getErrorMessage(err);
-        this.loading.domains = false;
+        this.loading.listUserDomains = false;
         return;
       }
     },
     listUserDomainsAborted(taskResult, taskContext) {
       console.error(`${taskContext.action} aborted`, taskResult);
       this.error.getConfiguration = this.core.$t("error.generic_error");
-      this.loading.domains = false;
+      this.loading.listUserDomains = false;
     },
     validateSaveSettings() {
       this.clearErrors(this);
@@ -249,7 +267,7 @@ export default {
       return isValidationOk;
     },
     saveSettingsValidationFailed(validationErrors) {
-      this.loading.settings = false;
+      this.loading.configureModule = false;
       for (const validationError of validationErrors) {
         const param = validationError.parameter;
         // set i18n error message
@@ -261,7 +279,7 @@ export default {
       if (!isValidationOk) {
         return;
       }
-      this.loading.settings = true;
+      this.loading.configureModule = true;
       const taskAction = "configure-module";
 
       // register to task error
@@ -302,14 +320,14 @@ export default {
       if (err) {
         console.error(`error creating task ${taskAction}`, err);
         this.error.configureModule = this.getErrorMessage(err);
-        this.loading.settings = false;
+        this.loading.configureModule = false;
         return;
       }
     },
     saveSettingsAborted(taskResult, taskContext) {
       console.error(`${taskContext.action} aborted`, taskResult);
       this.error.getConfiguration = this.core.$t("error.generic_error");
-      this.loading.settings = false;
+      this.loading.configureModule = false;
     },
     getConfigurationCompleted(taskContext, taskResult) {
       const config = taskResult.output;
@@ -318,11 +336,9 @@ export default {
       this.default_host = "nextcloud." + config.default_domain;
       this.running = config.running;
       this.installed = config.installed;
-      this.loading.settings = false;
+      this.loading.getConfiguration = false;
       if (this.host) {
-        this.nextcloud_link = `${this.$t(
-          "settings.open_link"
-        )}: <a href='https://${this.host}' target='_blank'>${this.host}</a>`;
+        this.nextcloud_link = this.host;
       }
       this.focusElement("host");
     },
@@ -337,12 +353,15 @@ export default {
         };
         this.domains.push(option);
       });
-      this.loading.domains = false;
+      this.loading.listUserDomains = false;
     },
     saveSettingsCompleted() {
-      this.loading.settings = false;
+      this.loading.configureModule = false;
       // reload configuration
       this.getConfiguration();
+    },
+    goToNextcloudWizard() {
+      window.open(`https://${this.nextcloud_link}`, "_blank");
     },
   },
 };
@@ -350,4 +369,8 @@ export default {
 
 <style scoped lang="scss">
 @import "../styles/carbon-utils";
+
+.cv-form .bx--form-item {
+  margin-bottom: $spacing-06;
+}
 </style>
