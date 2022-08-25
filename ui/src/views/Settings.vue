@@ -5,7 +5,6 @@
         <h2>{{ $t("settings.title") }}</h2>
       </div>
     </div>
-    <!-- sample settings page -->
     <div v-if="error.getConfiguration" class="bx--row">
       <div class="bx--col">
         <NsInlineNotification

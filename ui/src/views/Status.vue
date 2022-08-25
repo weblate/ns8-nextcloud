@@ -19,10 +19,46 @@
       <div class="bx--col-md-4 bx--col-max-4">
         <NsInfoCard
           light
+          :title="$t('status.nextcloud_webapp')"
+          :description="
+            config && config.host ? config.host : $t('status.not_configured')
+          "
+          :icon="Wikis32"
+          :loading="loading.getConfiguration"
+          :isErrorShown="error.getConfiguration"
+          :errorTitle="$t('error.cannot_retrieve_configuration')"
+          :errorDescription="error.getConfiguration"
+          class="min-height-card"
+        >
+          <template slot="content">
+            <NsButton
+              v-if="config && config.host"
+              kind="ghost"
+              :icon="Launch20"
+              :disabled="loading.getConfiguration"
+              @click="goToNextcloudWebapp"
+            >
+              {{ $t("status.open_nextcloud_webapp") }}
+            </NsButton>
+            <NsButton
+              v-else
+              kind="ghost"
+              :disabled="loading.getConfiguration"
+              :icon="ArrowRight20"
+              @click="goToAppPage(instanceName, 'settings')"
+            >
+              {{ $t("status.configure") }}
+            </NsButton>
+          </template>
+        </NsInfoCard>
+      </div>
+      <div class="bx--col-md-4 bx--col-max-4">
+        <NsInfoCard
+          light
           :title="status ? status.instance : ''"
           :description="$t('status.app_instance')"
           :icon="Application32"
-          :loading="loading.status"
+          :loading="loading.getStatus"
           class="min-height-card"
         />
       </div>
@@ -33,7 +69,7 @@
           :titleTooltip="installationNodeTitleTooltip"
           :description="$t('status.installation_node')"
           :icon="Chip32"
-          :loading="loading.status"
+          :loading="loading.getStatus"
           class="min-height-card"
         />
       </div>
@@ -83,7 +119,7 @@
         <h4>{{ $tc("status.services", 2) }}</h4>
       </div>
     </div>
-    <div v-if="!loading.status" class="bx--row">
+    <div v-if="!loading.getStatus" class="bx--row">
       <div v-if="!status.services.length" class="bx--col-lg-16">
         <cv-tile light>
           <NsEmptyState :title="$t('status.no_services')"> </NsEmptyState>
@@ -125,7 +161,7 @@
     <div class="bx--row">
       <div class="bx--col-lg-16">
         <cv-tile light>
-          <div v-if="!loading.status">
+          <div v-if="!loading.getStatus">
             <NsEmptyState
               v-if="!status.images.length"
               :title="$t('status.no_images')"
@@ -178,7 +214,7 @@
     <div class="bx--row">
       <div class="bx--col-lg-16">
         <cv-tile light>
-          <div v-if="!loading.status">
+          <div v-if="!loading.getStatus">
             <NsEmptyState
               v-if="!status.volumes.length"
               :title="$t('status.no_volumes')"
@@ -251,13 +287,18 @@ export default {
       status: null,
       backupRepositories: [],
       backups: [],
+      config: null,
       loading: {
         status: true,
         listBackupRepositories: true,
         listBackups: true,
+        getConfiguration: true,
       },
       error: {
         getStatus: "",
+        listBackupRepositories: "",
+        listBackups: "",
+        getConfiguration: "",
       },
     };
   },
@@ -284,6 +325,7 @@ export default {
   },
   created() {
     this.getStatus();
+    this.getConfiguration();
     this.listBackupRepositories();
   },
   beforeRouteEnter(to, from, next) {
@@ -307,7 +349,7 @@ export default {
   },
   methods: {
     async getStatus() {
-      this.loading.status = true;
+      this.loading.getStatus = true;
       this.error.getStatus = "";
       const taskAction = "get-status";
       // register to task completion
@@ -330,7 +372,7 @@ export default {
     },
     getStatusCompleted(taskContext, taskResult) {
       this.status = taskResult.output;
-      this.loading.status = false;
+      this.loading.getStatus = false;
     },
     async listBackupRepositories() {
       this.loading.listBackupRepositories = true;
@@ -414,6 +456,53 @@ export default {
       this.backups = backups;
 
       this.loading.listBackups = false;
+    },
+    async getConfiguration() {
+      this.loading.getConfiguration = true;
+      this.error.getConfiguration = "";
+      const taskAction = "get-configuration";
+
+      // register to task error
+      this.core.$root.$once(
+        taskAction + "-aborted",
+        this.getConfigurationAborted
+      );
+
+      // register to task completion
+      this.core.$root.$once(
+        taskAction + "-completed",
+        this.getConfigurationCompleted
+      );
+
+      const res = await to(
+        this.createModuleTaskForApp(this.instanceName, {
+          action: taskAction,
+          extra: {
+            title: this.$t("action." + taskAction),
+            isNotificationHidden: true,
+          },
+        })
+      );
+      const err = res[0];
+
+      if (err) {
+        console.error(`error creating task ${taskAction}`, err);
+        this.error.getConfiguration = this.getErrorMessage(err);
+        this.loading.getConfiguration = false;
+        return;
+      }
+    },
+    getConfigurationAborted(taskResult, taskContext) {
+      console.error(`${taskContext.action} aborted`, taskResult);
+      this.error.getConfiguration = this.core.$t("error.generic_error");
+      this.loading.getConfiguration = false;
+    },
+    getConfigurationCompleted(taskContext, taskResult) {
+      this.config = taskResult.output;
+      this.loading.getConfiguration = false;
+    },
+    goToNextcloudWebapp() {
+      window.open(`https://${this.config.host}`, "_blank");
     },
   },
 };
