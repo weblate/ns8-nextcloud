@@ -17,7 +17,11 @@
     "mount": "Mount",
     "no_services": "No services",
     "no_images": "No images",
-    "no_volumes": "No volumes"
+    "no_volumes": "No volumes",
+    "nextcloud_webapp": "Nextcloud webapp",
+    "not_configured": "Not configured",
+    "open_nextcloud_webapp": "Open Nextcloud",
+    "configure": "Configure"
   },
   "settings": {
     "title": "Settings",
@@ -58,6 +62,7 @@
     "403": "Operation not authorized",
     "404": "Resource not found",
     "cannot_retrieve_module_info": "Cannot retrieve module info",
-    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules"
+    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+    "cannot_retrieve_configuration": "Cannot retrieve configuration"
   }
 }

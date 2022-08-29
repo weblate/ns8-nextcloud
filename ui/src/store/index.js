@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    appName: "nextcloud", // TODO
+    appName: "Nextcloud",
     instanceName: "",
     instanceLabel: "",
     core: null,
