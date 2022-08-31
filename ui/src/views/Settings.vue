@@ -86,6 +86,45 @@
               ref="domain"
             >
             </cv-combo-box>
+            <template v-if="is_collabora && installed">
+              <NsComboBox
+                v-model.trim="collabora_host"
+                :autoFilter="true"
+                :autoHighlight="true"
+                :title="$t('settings.collabora_host')"
+                :label="$t('settings.collabora_placeholder')"
+                :options="collabora_URL"
+                :userInputLabel="core.$t('common.user_input_l')"
+                :acceptUserInput="true"
+                :showItemType="true"
+                :invalid-message="$t(error.collabora_host)"
+                :disabled="loadingUi"
+                tooltipAlignment="start"
+                tooltipDirection="top"
+                light
+                ref="host"
+              >
+                <template slot="tooltip">
+                {{
+                  $t("settings.collabora_host_tooltip")
+                }}
+                </template>
+              </NsComboBox>
+              <cv-toggle
+                value="tls_verify_collabora"
+                :label="$t('settings.tls_verify_collabora')"
+                v-model="tls_verify_collabora"
+                :disabled="loadingUi"
+                class="mg-bottom"
+              >
+                <template slot="text-left">{{
+                  $t("settings.disabled")
+                }}</template>
+                <template slot="text-right">{{
+                  $t("settings.enabled")
+                }}</template>
+              </cv-toggle>
+            </template>
             <NsButton
               kind="primary"
               :icon="Save20"
@@ -132,6 +171,7 @@ export default {
         getConfiguration: "",
         configureModule: "",
         listUserDomains: "",
+        collabora_host: "",
       },
       style: {
         lowContrast: false,
@@ -148,8 +188,11 @@ export default {
           value: "",
         },
       ],
+      collabora_URL: [],
       installed: false,
       running: false,
+      is_collabora: false,
+      tls_verify_collabora: true,
       nextcloud_link: "",
     };
   },
@@ -306,6 +349,9 @@ export default {
             host: this.host,
             lets_encrypt: this.isLetsEncryptEnabled,
             domain: this.domain,
+            is_collabora: this.is_collabora,
+            collabora_host: this.collabora_host,
+            tls_verify_collabora: this.tls_verify_collabora,
           },
           extra: {
             title: this.$t("settings.instance_configuration", {
@@ -335,6 +381,10 @@ export default {
       this.default_host = "nextcloud." + config.default_domain;
       this.running = config.running;
       this.installed = config.installed;
+      this.is_collabora = config.is_collabora;
+      this.tls_verify_collabora = config.tls_verify_collabora;
+      this.collabora_host = config.collabora_host;
+      this.collabora_URL = config.array_collabora;
       this.loading.getConfiguration = false;
       if (this.host) {
         this.nextcloud_link = this.host;

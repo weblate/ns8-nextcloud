@@ -38,6 +38,9 @@ config = {}
 config["domain"] = os.getenv("NEXTCLOUD_DOMAIN")
 config["host"] = os.getenv("TRAEFIK_HOST")
 config["lets_encrypt"] = os.getenv("TRAEFIK_LETS_ENCRYPT") == "True"
+config["collabora_host"] = os.getenv("COLLABORA_HOST", "")
+config["tls_verify_collabora"] = os.getenv("TLS_VERIFY_COLLABORA") ==  "True"
+
 try:
     config['default_domain'] = socket.getfqdn().partition('.')[2]
 except:
@@ -57,6 +60,19 @@ try:
     config['running'] = (p.returncode == 0)
 except:
     config['running'] = False
+
+# verify if collabora is installed on the cluster
+# propose in UI to link this nextcloud to collabora
+rdb = agent.redis_connect(privileged=False)
+config["is_collabora"] = True if rdb.get('cluster/default_instance/collabora') else False
+# retrieve all url stored in redis for all collabora instances
+array_collabora = []
+for c in rdb.scan_iter('module/collabora*/environment'):
+    name = c.removeprefix('module/').removesuffix('/environment')
+    url = rdb.hget(c, 'TRAEFIK_HOST')
+    if url:
+        array_collabora.append({"name": name, "label": name+' ('+ url+')', "value": url})
+config["array_collabora"] = array_collabora
 
 # Dump the configuratio to stdou
 json.dump(config, fp=sys.stdout)
