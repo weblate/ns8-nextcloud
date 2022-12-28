@@ -3,7 +3,7 @@
 # Terminate on error
 set -e
 
-NC_VERSION=25
+NC_VERSION=25.0.2
 
 # Prepare variables for later use
 images=()
@@ -18,7 +18,7 @@ container=$(buildah from scratch)
 # Reuse existing nodebuilder-nextcloud container, to speed up builds
 if ! buildah containers --format "{{.ContainerName}}" | grep -q nodebuilder-nextcloud; then
     echo "Pulling NodeJS runtime..."
-    buildah from --name nodebuilder-nextcloud -v "${PWD}:/usr/src:Z" docker.io/library/node:lts-slim
+    buildah from --name nodebuilder-nextcloud -v "${PWD}:/usr/src:Z" docker.io/node:18.12.1-alpine
 fi
 
 echo "Build static UI files with node..."
@@ -32,7 +32,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.authorizations=traefik@any:routeadm" \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
-    --label="org.nethserver.images=docker.io/redis:6-alpine docker.io/mariadb:10.5 docker.io/nginx:1.21-alpine ghcr.io/nethserver/nextcloud-app:${IMAGETAG}" \
+    --label="org.nethserver.images=docker.io/redis:6.2.8-alpine docker.io/mariadb:10.5.18 docker.io/nginx:1.21.6-alpine ghcr.io/nethserver/nextcloud-app:${IMAGETAG}" \
     "${container}"
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"
@@ -60,7 +60,7 @@ images+=("${nc_image}")
 #
 
 #
-# Setup CI when pushing to Github. 
+# Setup CI when pushing to Github.
 # Warning! docker::// protocol expects lowercase letters (,,)
 if [[ -n "${CI}" ]]; then
     # Set output value for Github Actions
