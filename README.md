@@ -34,7 +34,8 @@ api-cli run configure-module --agent module/nextcloud1 --data - <<EOF
 {
     "host": "nextcloud.nethserver.org",
     "lets_encrypt": true,
-    "domain": "ad.nethserver.org"
+    "domain": "ad.nethserver.org",
+    "password": "Nethesis,1234"
 }
 EOF
 ```
@@ -44,6 +45,9 @@ To execute `occ` command inside an instance:
 ssh nextcloud1@localhost
 runagent occ <args>
 ```
+
+You can customize FPM configuration by changing the file named `zzz_nethserver.conf` inside the state directory.
+Example: `/home/nextcloud1/.config/state/zzz_nethserver.conf`.
 
 ## Uninstall
 
