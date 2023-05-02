@@ -35,8 +35,6 @@
     "domain": "User domain",
     "no_domain": "No user domain",
     "host_string_gte": "The host name can't be empty",
-    "first_config_title": "Run first configuration wizard",
-    "first_config_body": "Nextcloud is running but needs to be configured. Click <strong>Configure Nextcloud</strong> and complete the configuration. After, return to this page if you want to connect Nextcloud authentication to a domain.",
     "configure_nextcloud": "Configure Nextcloud",
     "host_invalid_type": "Invalid host name",
     "collabora_host":"CODE server host name",
