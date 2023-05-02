@@ -9,7 +9,9 @@
         "network_timeout": "Timeout di rete",
         "generic_error": "Qualcosa è andato storto",
         "401": "Autenticazione non valida",
-        "403": "Operazione non autorizzata"
+        "403": "Operazione non autorizzata",
+        "cannot_retrieve_configuration": "Impossibile caricare la configurazione",
+        "password_invalid_chars": "La password non può contenere spazi ne i seguenti caratteri: ' \" ="
     },
     "common": {
         "required": "Obbligatorio",
@@ -29,11 +31,30 @@
         "app_images": "Immagine app|Immagini app",
         "app_volumes": "Volume app|Volumi app",
         "installation_node": "Nodo",
-        "mount": "Percorso di mount"
+        "mount": "Percorso di mount",
+        "not_configured": "Non configurato",
+        "configure": "Configura",
+        "open_nextcloud_webapp": "Apri Nextcloud",
+        "nextcloud_webapp": "Nextcloud webapp"
     },
     "settings": {
         "save": "Salva",
-        "title": "Impostazioni"
+        "title": "Impostazioni",
+        "configure_nextcloud": "Configura Nextcloud",
+        "host": "Nome host",
+        "disabled": "Disabilitato",
+        "enabled": "Abilitato",
+        "instance_configuration": "Configura {instance}",
+        "lets_encrypt": "Certificato Let's Encrypt",
+        "domain": "Dominio utenti",
+        "no_domain": "Nessun dominio utenti",
+        "host_invalid_type": "Nome host non valido",
+        "collabora_host": "Nome host del server CODE",
+        "tls_verify_collabora": "Verifica certificato TLS",
+        "configuring": "Configurazione in corso...",
+        "host_string_gte": "Il nome host non può essere vuoto",
+        "collabora_host_tooltip": "Inserire il nome host del server Collabora Online Development Edition",
+        "admin_password": "Password per l'utente 'admin'"
     },
     "action": {
         "configure-module": "Configura modulo",
