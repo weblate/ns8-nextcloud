@@ -70,6 +70,10 @@ for c in rdb.scan_iter('module/collabora*/environment'):
     if url:
         array_collabora.append({"name": name, "label": name+' ('+ url+')', "value": url})
 config["array_collabora"] = array_collabora
+# The first load of nextcloud json is empty of tls_verify_collabora
+# let's do a default value
+if "tls_verify_collabora" not in config:
+    config["tls_verify_collabora"] = False
 
 # Dump the configuratio to stdou
 json.dump(config, fp=sys.stdout)

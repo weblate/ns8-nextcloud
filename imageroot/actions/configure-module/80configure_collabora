@@ -10,11 +10,11 @@ tls_verify=$(cat config.json | jq -r '.tls_verify_collabora // empty')
 
 if  [[ "$collabora_host" != "" ]]; then
     occ app:install richdocuments
-    occ config:app:set richdocuments wopi_url --value=https://$COLLABORA_HOST
-    if [[ "$tls_verify" == 'True' ]]; then
-        occ config:app:set richdocuments disable_certificate_verification --value=yes
-    else
+    occ config:app:set richdocuments wopi_url --value=https://$collabora_host
+    if [[ "$tls_verify" == 'true' ]]; then
         occ config:app:set richdocuments disable_certificate_verification --value=no
+    else
+        occ config:app:set richdocuments disable_certificate_verification --value=yes
     fi
     occ app:enable richdocuments
 fi
