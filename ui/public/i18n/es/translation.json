@@ -1,1 +1,72 @@
-{}
+{
+    "error": {
+        "403": "Operación no autorizada",
+        "cannot_retrieve_installed_modules": "No es posible recibir los módulos instalados",
+        "401": "Autenticación no válida",
+        "cannot_retrieve_module_info": "No es posible recibir la información del módulo",
+        "generic_error": "Algo ha salido mal",
+        "cannot_retrieve_configuration": "No se puede recuperar la configuración",
+        "error": "Error",
+        "network_timeout": "Tiempo de espera de red agotado",
+        "password_invalid_chars": "La contraseña no puede contener espacios ni los siguientes caracteres: ' \" =",
+        "404": "Recurso no encontrado",
+        "network_error": "Error de red",
+        "validation_error": "Error de validación"
+    },
+    "settings": {
+        "collabora_host_tooltip": "Escribe el nombre de host del servidor Collabora Online Development Edition",
+        "configuring": "Configuración en curso...",
+        "host": "Nombre de host",
+        "disabled": "Deshabilitado",
+        "instance_configuration": "Configurar {instance}",
+        "host_string_gte": "El nombre de host no puede estar vacío",
+        "configure_nextcloud": "Configurar Nextcloud",
+        "collabora_placeholder": "Escribe un nombre de dominio completo o elije una opción",
+        "admin_password": "Contraseña para el usuario 'admin'",
+        "no_domain": "Sin dominio de usuario",
+        "lets_encrypt": "Certificado Let's Encrypt",
+        "host_invalid_type": "Nombre de host no válido",
+        "save": "Guardar",
+        "tls_verify_collabora": "Verificar certificado TLS",
+        "enabled": "Habilitado",
+        "collabora_host": "Nombre de host servidor CODE",
+        "domain": "Dominio de usuario",
+        "title": "Ajustes"
+    },
+    "status": {
+        "nextcloud_webapp": "Aplicación web Nextcloud",
+        "created": "Creado",
+        "size": "Tamaño",
+        "name": "Nombre",
+        "no_images": "No hay imágenes",
+        "app_volumes": "Volúmen de App | Volúmenes de App",
+        "services": "Servicio | Servicios",
+        "app_images": "Imagen de App | Imágenes de App",
+        "open_nextcloud_webapp": "Abrir Nextcloud",
+        "no_services": "No hay servicios",
+        "configure": "Configurar",
+        "app_instance": "Instancia de aplicación",
+        "mount": "Montar",
+        "title": "Estado",
+        "not_configured": "No configurado",
+        "installation_node": "Nodo de instalación",
+        "node": "Nodo",
+        "no_volumes": "No hay volúmenes"
+    },
+    "common": {
+        "required": "Requerido",
+        "work_in_progress": "Trabajo en progreso"
+    },
+    "about": {
+        "title": "Acerca de"
+    },
+    "action": {
+        "get-module-info": "Obtener información del módulo",
+        "get-status": "Obtener estado",
+        "configure-module": "Configurar módulo",
+        "get-configuration": "Obtener la configuración"
+    },
+    "task": {
+        "cannot_create_task": "No se puede crear la tarea {action}"
+    }
+}
