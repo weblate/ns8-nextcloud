@@ -1,23 +1,23 @@
 {
     "error": {
-        "403": "Operation not authorized",
-        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
-        "401": "Invalid authentication",
-        "cannot_retrieve_module_info": "Cannot retrieve module info",
-        "generic_error": "Something went wrong",
+        "403": "Operación no autorizada",
+        "cannot_retrieve_installed_modules": "No es posible recibir los módulos instalados",
+        "401": "Autenticación no válida",
+        "cannot_retrieve_module_info": "No es posible recibir la información del módulo",
+        "generic_error": "Algo ha salido mal",
         "cannot_retrieve_configuration": "No se puede recuperar la configuración",
         "error": "Error",
-        "network_timeout": "Network timeout",
+        "network_timeout": "Tiempo de espera de red agotado",
         "password_invalid_chars": "La contraseña no puede contener espacios ni los siguientes caracteres: ' \" =",
-        "404": "Resource not found",
-        "network_error": "Network error",
-        "validation_error": "Validation error"
+        "404": "Recurso no encontrado",
+        "network_error": "Error de red",
+        "validation_error": "Error de validación"
     },
     "settings": {
         "collabora_host_tooltip": "Escribe el nombre de host del servidor Collabora Online Development Edition",
         "configuring": "Configuración en curso...",
         "host": "Nombre del host",
-        "disabled": "Disabled",
+        "disabled": "Deshabilitado",
         "instance_configuration": "Configurar {instance}",
         "host_string_gte": "El nombre de host no puede estar vacío",
         "configure_nextcloud": "Configurar Nextcloud",
@@ -26,47 +26,47 @@
         "no_domain": "Sin dominio de usuario",
         "lets_encrypt": "Certificado Let's Encrypt",
         "host_invalid_type": "Nombre de host no válido",
-        "save": "Save",
+        "save": "Guardar",
         "tls_verify_collabora": "Verificar certificado TLS",
-        "enabled": "Enabled",
+        "enabled": "Habilitado",
         "collabora_host": "Nombre de host servidor CODE",
         "domain": "Dominio de usuario",
-        "title": "Settings"
+        "title": "Ajustes"
     },
     "status": {
         "nextcloud_webapp": "Aplicación web Nextcloud",
-        "created": "Created",
-        "size": "Size",
-        "name": "Name",
-        "no_images": "No images",
-        "app_volumes": "App volume | App volumes",
-        "services": "Service | Services",
-        "app_images": "App image | App images",
+        "created": "Creado",
+        "size": "Tamaño",
+        "name": "Nombre",
+        "no_images": "No hay imágenes",
+        "app_volumes": "Volúmen de aplicación | Volúmenes de aplicaciones",
+        "services": "Servicio | Servicios",
+        "app_images": "Imagen de App | Imágenes de App",
         "open_nextcloud_webapp": "Abrir Nextcloud",
-        "no_services": "No services",
+        "no_services": "No hay servicios",
         "configure": "Configurar",
-        "app_instance": "App instance",
-        "mount": "Mount",
-        "title": "Status",
+        "app_instance": "Instancia de la aplicación",
+        "mount": "Montar",
+        "title": "Estado",
         "not_configured": "No configurado",
-        "installation_node": "Installation node",
-        "node": "Node",
-        "no_volumes": "No volumes"
+        "installation_node": "Nodo de instalación",
+        "node": "Nodo",
+        "no_volumes": "Sin volúmenes"
     },
     "common": {
-        "required": "Requerido",
-        "work_in_progress": "Work in progress"
+        "required": "Obligatorio",
+        "work_in_progress": "Trabajo en curso"
     },
     "about": {
-        "title": "About"
+        "title": "Acerca de"
     },
     "action": {
-        "get-module-info": "Get module info",
-        "get-status": "Get status",
-        "configure-module": "Configure module",
-        "get-configuration": "Get configuration"
+        "get-module-info": "Obtener información del módulo",
+        "get-status": "Obtener el estado",
+        "configure-module": "Configurar el módulo",
+        "get-configuration": "Obtener la configuración"
     },
     "task": {
-        "cannot_create_task": "Cannot create task {action}"
+        "cannot_create_task": "No se puede crear la tarea {action}"
     }
 }
