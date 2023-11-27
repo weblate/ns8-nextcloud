@@ -62,10 +62,10 @@
         "test-module.sh"
       ],
       "matchStrings": [
-        "ghcr\\.io\/marketsquare\/robotframework-browser\/rfbrowser-stable:(?<currentValue>[^\\s]+)"
+        "ghcr\\.io/marketsquare/robotframework-browser/rfbrowser-stable:(?<currentValue>[^\\s]+)"
       ],
-      "depNameTemplate": "ghcr.io/marketsquare/robotframework-browser/rfbrowser-stable",
-      "datasourceTemplate": "docker"
+      "depNameTemplate": "MarketSquare/robotframework-browser",
+      "datasourceTemplate": "github-releases"
     }
   ],
   "packageRules": [
