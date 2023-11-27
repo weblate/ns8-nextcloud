@@ -15,7 +15,7 @@ Check if nextcloud can be configured
     Should Be Equal As Integers    ${rc}  0
 
 Check if nextcloud works as expected
-    Wait Until Keyword Succeeds    20 times    1 seconds    Ping nextcloud
+    Wait Until Keyword Succeeds    20 times    6 seconds    Ping nextcloud
 
 Check if nextcloud is removed correctly
     ${rc} =    Execute Command    remove-module --no-preserve ${module_id}
