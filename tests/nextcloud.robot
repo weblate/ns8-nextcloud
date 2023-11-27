@@ -10,7 +10,7 @@ Check if nextcloud is installed correctly
     Set Suite Variable    ${module_id}    ${output.module_id}
 
 Check if nextcloud can be configured
-    ${out}  ${err}  ${rc} =    Execute Command    api-cli run module/${module_id}/configure-module --data '{"host": "nextcloud.test.local", "lets_encrypt": false, "domain": "", "password": "Nethesis,1234"}'
+    ${out}  ${err}  ${rc} =    Execute Command    api-cli run module/${module_id}/configure-module --data '{"host": "nextcloud.dom.test", "lets_encrypt": false, "domain": "", "password": "Nethesis,1234"}'
     ...    return_rc=True  return_stdout=True  return_stderr=True
     Should Be Equal As Integers    ${rc}  0
 
@@ -24,6 +24,6 @@ Check if nextcloud is removed correctly
 
 *** Keywords ***
 Ping nextcloud
-    ${out}  ${err}  ${rc} =    Execute Command    curl -f -k -H "Host: nextcloud.test.local" https://127.0.0.1
+    ${out}  ${err}  ${rc} =    Execute Command    curl -f -k -H "Host: nextcloud.dom.test" https://127.0.0.1
     ...    return_rc=True  return_stdout=True  return_stderr=True
     Should Be Equal As Integers    ${rc}  0
