@@ -31,7 +31,7 @@
             </div>
             <cv-text-input
               :label="$t('settings.host')"
-              :placeholder="default_host"
+              :placeholder="$t('common.eg_value', {value: default_host})"
               v-model.trim="host"
               class="mg-bottom"
               :invalid-message="error.host"
