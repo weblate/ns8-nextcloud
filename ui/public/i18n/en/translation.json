@@ -1,7 +1,8 @@
 {
   "common": {
     "required": "Required",
-    "work_in_progress": "Work in progress"
+    "work_in_progress": "Work in progress",
+    "eg_value": "E.g. {value}"
   },
   "status": {
     "title": "Status",
