@@ -31,7 +31,7 @@
             </div>
             <cv-text-input
               :label="$t('settings.host')"
-              :placeholder="$t('common.eg_value', {value: default_host})"
+              :placeholder="$t('common.eg_value', {value: 'mynextcloud.example.com'})"
               v-model.trim="host"
               class="mg-bottom"
               :invalid-message="error.host"
@@ -176,7 +176,6 @@ export default {
         hideClose: true,
       },
       host: "",
-      default_host: "",
       isLetsEncryptEnabled: false,
       domain: "",
       password: "Nethesis,1234",
@@ -390,7 +389,6 @@ export default {
       const config = taskResult.output;
       this.host = config.host;
       this.isLetsEncryptEnabled = config.lets_encrypt;
-      this.default_host = "nextcloud." + config.default_domain;
       this.running = config.running;
       this.installed = config.installed;
       this.is_collabora = config.is_collabora;
