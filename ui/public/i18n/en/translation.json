@@ -1,8 +1,7 @@
 {
   "common": {
     "required": "Required",
-    "work_in_progress": "Work in progress",
-    "eg_value": "E.g. {value}"
+    "work_in_progress": "Work in progress"
   },
   "status": {
     "title": "Status",
@@ -44,7 +43,8 @@
     "collabora_placeholder": "Select a collabora server or leave empty to disable",
     "admin_password": "Password for user 'admin'",
     "domain_tooltip": "A LDAP domain is used to authenticate users. If none LDAP user domain is listed you probably need to install one",
-    "choose_ldap_domain": "Select a LDAP user domain"
+    "choose_ldap_domain": "Select a LDAP user domain",
+    "host_placeholder": "E.g. mynextcloud.example.org"
   },
   "about": {
     "title": "About"

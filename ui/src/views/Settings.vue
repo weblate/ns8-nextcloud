@@ -31,7 +31,7 @@
             </div>
             <cv-text-input
               :label="$t('settings.host')"
-              :placeholder="$t('common.eg_value', {value: 'mynextcloud.example.com'})"
+              :placeholder="$t('settings.host_placeholder')"
               v-model.trim="host"
               class="mg-bottom"
               :invalid-message="error.host"
