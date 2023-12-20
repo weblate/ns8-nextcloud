@@ -32,16 +32,19 @@
     "instance_configuration": "Configure {instance}",
     "configuring": "Configuration in progress...",
     "lets_encrypt": "Let's Encrypt certificate",
-    "domain": "User domain",
+    "domain": "LDAP User domain",
     "no_domain": "No user domain",
     "host_string_gte": "The host name can't be empty",
     "configure_nextcloud": "Configure Nextcloud",
     "host_invalid_type": "Invalid host name",
     "collabora_host":"CODE server host name",
-    "collabora_host_tooltip": "Type the host name of Collabora Online Development Edition server",
+    "collabora_host_tooltip": "Collabora Online Development Edition (CODE) is a self-hostable LibreOffice Online server. It allows you to edit office documents in a web browser.",
     "tls_verify_collabora":"Verify TLS certificate",
-    "collabora_placeholder": "Type a fully qualified domain name or choose an option",
-    "admin_password": "Password for user 'admin'"
+    "collabora_placeholder": "Select a collabora server or leave empty to disable",
+    "admin_password": "Password for user 'admin'",
+    "domain_tooltip": "A LDAP domain is used to authenticate users. If none LDAP user domain is listed you probably need to install one",
+    "choose_ldap_domain": "Select a LDAP user domain",
+    "host_placeholder": "E.g. mynextcloud.example.org"
   },
   "about": {
     "title": "About"

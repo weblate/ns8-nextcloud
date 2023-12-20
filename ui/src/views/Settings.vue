@@ -31,7 +31,7 @@
             </div>
             <cv-text-input
               :label="$t('settings.host')"
-              :placeholder="default_host"
+              :placeholder="$t('settings.host_placeholder')"
               v-model.trim="host"
               class="mg-bottom"
               :invalid-message="error.host"
@@ -63,18 +63,25 @@
                 $t("settings.enabled")
               }}</template>
             </cv-toggle>
-            <cv-combo-box
+            <NsComboBox
               v-model="domain"
               :options="domains"
               auto-highlight
               :title="$t('settings.domain')"
               :invalid-message="$t(error.listUserDomains)"
               :disabled="loadingUi"
-              :label="$t('settings.no_domain')"
+              :label="$t('settings.choose_ldap_domain')"
               light
+              tooltipAlignment="start"
+              tooltipDirection="top"
               ref="domain"
             >
-            </cv-combo-box>
+            <template slot="tooltip">
+                {{
+                  $t("settings.domain_tooltip")
+                }}
+                </template>
+            </NsComboBox>
             <template v-if="is_collabora && installed">
               <NsComboBox
                 v-model.trim="collabora_host"
@@ -84,7 +91,7 @@
                 :label="$t('settings.collabora_placeholder')"
                 :options="collabora_URL"
                 :userInputLabel="core.$t('common.user_input_l')"
-                :acceptUserInput="true"
+                :acceptUserInput="false"
                 :showItemType="true"
                 :invalid-message="$t(error.collabora_host)"
                 :disabled="loadingUi"
@@ -169,17 +176,10 @@ export default {
         hideClose: true,
       },
       host: "",
-      default_host: "",
       isLetsEncryptEnabled: false,
       domain: "",
       password: "Nethesis,1234",
-      domains: [
-        {
-          name: "nodomain",
-          label: "-",
-          value: "",
-        },
-      ],
+      domains: [],
       collabora_URL: [],
       installed: false,
       running: false,
@@ -303,6 +303,12 @@ export default {
         this.focusElement("host");
         isValidationOk = false;
       }
+      if (!this.domain) {
+        // test field cannot be empty
+        this.error.listUserDomains = this.$t("common.required");
+        this.focusElement("domain");
+        isValidationOk = false;
+      }
       // exclude characters not correctly supported by env file
       const re = new RegExp("\"|=|'|\\s|\\t");
       if (re.test(this.password)) {
@@ -383,7 +389,6 @@ export default {
       const config = taskResult.output;
       this.host = config.host;
       this.isLetsEncryptEnabled = config.lets_encrypt;
-      this.default_host = "nextcloud." + config.default_domain;
       this.running = config.running;
       this.installed = config.installed;
       this.is_collabora = config.is_collabora;
