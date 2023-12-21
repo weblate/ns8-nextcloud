@@ -315,6 +315,12 @@ export default {
         this.focusElement("domain");
         isValidationOk = false;
       }
+      if (!this.password) {
+        // test field cannot be empty
+        this.error.password = this.$t("common.required");
+        this.focusElement("password");
+        isValidationOk = false;
+      }
       // exclude characters not correctly supported by env file
       const re = new RegExp("\"|=|'|\\s|\\t");
       if (re.test(this.password)) {
