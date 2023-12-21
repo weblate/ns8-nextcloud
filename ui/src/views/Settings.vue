@@ -39,8 +39,9 @@
               ref="host"
             >
             </cv-text-input>
-            <cv-text-input
+             <NsTextInput
               :label="$t('settings.admin_password')"
+              type="password"
               v-model.trim="password"
               v-if="!installed"
               class="mg-bottom"
@@ -48,7 +49,12 @@
               :disabled="loadingUi"
               ref="password"
             >
-            </cv-text-input>
+              <template slot="tooltip">
+                <span
+                  v-html="$t('settings.admin_password_tooltip')"
+                ></span>
+              </template>
+            </NsTextInput>
             <cv-toggle
               value="letsEncrypt"
               :label="$t('settings.lets_encrypt')"
