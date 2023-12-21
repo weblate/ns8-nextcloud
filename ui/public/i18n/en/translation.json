@@ -33,7 +33,7 @@
     "configuring": "Configuration in progress...",
     "lets_encrypt": "Let's Encrypt certificate",
     "domain": "User domain",
-    "no_domain": "No user domain",
+    "no_user_domain": "Use the Nextcloud user database",
     "host_string_gte": "The host name can't be empty",
     "configure_nextcloud": "Configure Nextcloud",
     "host_invalid_type": "Invalid host name",
