@@ -358,7 +358,7 @@ export default {
           data: {
             host: this.host,
             lets_encrypt: this.isLetsEncryptEnabled,
-            domain: this.domain,
+            domain: this.domain === "-" ? "" : this.domain,
             is_collabora: this.is_collabora,
             collabora_host: this.collabora_host,
             tls_verify_collabora: this.tls_verify_collabora,
@@ -396,7 +396,7 @@ export default {
       this.collabora_host = config.collabora_host;
       this.collabora_URL = config.array_collabora;
       this.loading.getConfiguration = false;
-      this.domain = config.domain;
+      this.domain = config.domain === "" ? "-" : config.domain;
       this.focusElement("host");
     },
     listUserDomainsCompleted(taskContext, taskResult) {
@@ -409,6 +409,12 @@ export default {
           value: element["name"],
         };
         this.domains.push(option);
+      });
+      //PUSH no domain option
+      this.domains.unshift({
+        name: "no_user_domain",
+        label: this.$t("settings.no_user_domain"),
+        value: "-"
       });
       this.loading.listUserDomains = false;
     },
