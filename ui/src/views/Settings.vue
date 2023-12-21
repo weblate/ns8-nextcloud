@@ -82,11 +82,6 @@
               tooltipDirection="top"
               ref="domain"
             >
-            <template slot="tooltip">
-                {{
-                  $t("settings.domain_tooltip")
-                }}
-                </template>
             </NsComboBox>
             <template v-if="is_collabora && installed">
               <NsComboBox
