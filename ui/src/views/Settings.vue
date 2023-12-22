@@ -39,8 +39,9 @@
               ref="host"
             >
             </cv-text-input>
-            <cv-text-input
+             <NsTextInput
               :label="$t('settings.admin_password')"
+              type="password"
               v-model.trim="password"
               v-if="!installed"
               class="mg-bottom"
@@ -48,7 +49,12 @@
               :disabled="loadingUi"
               ref="password"
             >
-            </cv-text-input>
+              <template slot="tooltip">
+                <span
+                  v-html="$t('settings.admin_password_tooltip')"
+                ></span>
+              </template>
+            </NsTextInput>
             <cv-toggle
               value="letsEncrypt"
               :label="$t('settings.lets_encrypt')"
@@ -76,11 +82,6 @@
               tooltipDirection="top"
               ref="domain"
             >
-            <template slot="tooltip">
-                {{
-                  $t("settings.domain_tooltip")
-                }}
-                </template>
             </NsComboBox>
             <template v-if="is_collabora && installed">
               <NsComboBox
@@ -309,6 +310,12 @@ export default {
         this.focusElement("domain");
         isValidationOk = false;
       }
+      if (!this.password) {
+        // test field cannot be empty
+        this.error.password = this.$t("common.required");
+        this.focusElement("password");
+        isValidationOk = false;
+      }
       // exclude characters not correctly supported by env file
       const re = new RegExp("\"|=|'|\\s|\\t");
       if (re.test(this.password)) {
@@ -358,7 +365,7 @@ export default {
           data: {
             host: this.host,
             lets_encrypt: this.isLetsEncryptEnabled,
-            domain: this.domain,
+            domain: this.domain === "-" ? "" : this.domain,
             is_collabora: this.is_collabora,
             collabora_host: this.collabora_host,
             tls_verify_collabora: this.tls_verify_collabora,
@@ -396,7 +403,7 @@ export default {
       this.collabora_host = config.collabora_host;
       this.collabora_URL = config.array_collabora;
       this.loading.getConfiguration = false;
-      this.domain = config.domain;
+      this.domain = config.domain === "" ? "-" : config.domain;
       this.focusElement("host");
     },
     listUserDomainsCompleted(taskContext, taskResult) {
@@ -409,6 +416,12 @@ export default {
           value: element["name"],
         };
         this.domains.push(option);
+      });
+      //PUSH no domain option
+      this.domains.unshift({
+        name: "no_user_domain",
+        label: this.$t("settings.no_user_domain"),
+        value: "-"
       });
       this.loading.listUserDomains = false;
     },

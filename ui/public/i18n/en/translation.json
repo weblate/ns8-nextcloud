@@ -33,7 +33,7 @@
     "configuring": "Configuration in progress...",
     "lets_encrypt": "Let's Encrypt certificate",
     "domain": "User domain",
-    "no_domain": "No user domain",
+    "no_user_domain": "Nextcloud internal user database",
     "host_string_gte": "The host name can't be empty",
     "configure_nextcloud": "Configure Nextcloud",
     "host_invalid_type": "Invalid host name",
@@ -42,9 +42,9 @@
     "tls_verify_collabora":"Verify TLS certificate",
     "collabora_placeholder": "Select a collabora server or leave empty to disable",
     "admin_password": "Password for user 'admin'",
-    "domain_tooltip": "A user domain is used to authenticate users. If none user domain is listed you probably need to install one",
     "choose_ldap_domain": "Select a user domain",
-    "host_placeholder": "E.g. mynextcloud.example.org"
+    "host_placeholder": "E.g. mynextcloud.example.org",
+    "admin_password_tooltip": "The user 'admin' is the internal administrator of Nextcloud. This password is used to authenticate the 'admin' user in the Nextcloud web interface."
   },
   "about": {
     "title": "About"
