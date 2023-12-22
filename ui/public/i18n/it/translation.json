@@ -47,7 +47,6 @@
         "instance_configuration": "Configura {instance}",
         "lets_encrypt": "Certificato Let's Encrypt",
         "domain": "Dominio utenti",
-        "no_domain": "Nessun dominio utenti",
         "host_invalid_type": "Nome host non valido",
         "collabora_host": "Nome host del server CODE",
         "tls_verify_collabora": "Verifica certificato TLS",

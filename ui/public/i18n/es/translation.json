@@ -23,7 +23,6 @@
         "configure_nextcloud": "Configurar Nextcloud",
         "collabora_placeholder": "Escribe un nombre de dominio completo o elije una opción",
         "admin_password": "Contraseña para el usuario 'admin'",
-        "no_domain": "Sin dominio de usuario",
         "lets_encrypt": "Certificado Let's Encrypt",
         "host_invalid_type": "Nombre de host no válido",
         "save": "Guardar",
