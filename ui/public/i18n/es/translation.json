@@ -14,14 +14,14 @@
         "validation_error": "Validation error"
     },
     "settings": {
-        "collabora_host_tooltip": "Escribe el nombre de host del servidor Collabora Online Development Edition",
+        "collabora_host_tooltip": "Collabora Online Development Edition (CODE) es un servidor LibreOffice Online autohospedable. Te permite editar documentos de Office en un navegador web.",
         "configuring": "Configuración en curso...",
         "host": "Nombre del host",
         "disabled": "Deshabilitado",
         "instance_configuration": "Configurar {instance}",
         "host_string_gte": "El nombre de host no puede estar vacío",
         "configure_nextcloud": "Configurar Nextcloud",
-        "collabora_placeholder": "Escribe un nombre de dominio completo o elije una opción",
+        "collabora_placeholder": "Selecciona un servidor colaborativo o déjalo vacío para desactivarlo",
         "admin_password": "Contraseña para el usuario 'admin'",
         "lets_encrypt": "Certificado Let's Encrypt",
         "host_invalid_type": "Nombre de host no válido",
@@ -30,7 +30,11 @@
         "enabled": "Habilitado",
         "collabora_host": "Nombre de host servidor CODE",
         "domain": "Dominio de usuario",
-        "title": "Settings"
+        "title": "Settings",
+        "admin_password_tooltip": "El usuario 'admin' es el administrador interno de Nextcloud. Esta contraseña se utiliza para autenticar al usuario 'admin' en la interfaz web de Nextcloud.",
+        "host_placeholder": "Por ejemplo: minextcloud.ejemplo.es",
+        "choose_ldap_domain": "Selecciona un dominio de usuario",
+        "no_user_domain": "Base de datos de usuarios internos de Nextcloud"
     },
     "status": {
         "nextcloud_webapp": "Aplicación web Nextcloud",
