@@ -35,6 +35,7 @@ with open(envfile + ".tmp", "w") as efp:
     print(f"SMTP_PORT={smtp_settings['port']}", file=efp)
     print(f"MAIL_DOMAIN={domain}", file=efp)
     print(f"MAIL_FROM_ADDRESS=no-reply", file=efp)
+    print(f"SMTP_TLS_VERIFY={smtp_settings['tls_verify']}", file=efp)
     if smtp_settings['password'] != 'none':
         print(f"SMTP_SECURE={smtp_settings['encrypt_smtp']}", file=efp)
     if smtp_settings['username'] and smtp_settings['password']:
