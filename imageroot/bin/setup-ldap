@@ -26,10 +26,7 @@
 # Example:
 #   setup-ldap {"domain": "ad.mydomain.org"}
 
-import os
 import sys
-import json
-import time
 import agent
 import subprocess
 from agent.ldapproxy import Ldapproxy
@@ -61,19 +58,7 @@ if not domain:
     print(f'Domain not found: {cdomain}', file=sys.stderr)
     sys.exit(0)
 
-max_tries = 60
-i = 0
-while i < max_tries:
-    i = i+1
-    try:
-        ret, out = occ(["status", "--output", "json"])
-        status = json.loads(out)
-        if status["installed"]:
-            break
-        print(f"setup-ldap: waiting for nextcloud-app ({i})", file=sys.stderr)
-        time.sleep(1)
-    except Exception as e:
-        continue
+# we wait after nextcloud-app systemed is ready inside systemd script wait_after_nextcloud
 
 occ(["app:enable", "user_ldap"])
 cret, coutput = occ(["ldap:show-config", "s01"])
