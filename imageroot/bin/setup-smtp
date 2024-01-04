@@ -17,7 +17,7 @@ smarthost= agent.read_envfile("smarthost.env")
 # smarthost is configured
 if 'SMTP_HOST' in smarthost:
     # verify if smarthost verify tls certificate
-    if smarthost['SMTP_SECURE'] == 'none' or smarthost['SMTP_TLS_VERIFY'] == 'False':
+    if smarthost.get('SMTP_SECURE') == 'none' or smarthost.get('SMTP_TLS_VERIFY') == 'False':
         occ(["config:system:set","mail_smtpstreamoptions","ssl","allow_self_signed","--value=true", "--type=boolean"])
         occ(["config:system:set","mail_smtpstreamoptions","ssl","verify_peer","--value=false","--type=boolean"])
         occ(["config:system:set","mail_smtpstreamoptions","ssl","verify_peer_name","--value=false","--type=boolean"])
