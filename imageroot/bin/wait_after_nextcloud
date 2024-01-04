@@ -25,7 +25,7 @@ while i < max_tries:
         status = json.loads(out)
         if status["installed"]:
             break
-        print(f"dynamic-configuration: waiting for nextcloud-app ({i})", file=sys.stderr)
+        print(f"wait_after_nextcloud: waiting for nextcloud-app ({i})", file=sys.stderr)
         time.sleep(1)
     except Exception as e:
         continue
