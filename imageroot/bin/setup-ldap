@@ -58,9 +58,6 @@ if not domain:
     print(f'Domain not found: {cdomain}', file=sys.stderr)
     sys.exit(0)
 
-# Store domain name for services configuration:
-agent.set_env("LDAP_USER_DOMAIN", cdomain)
-
 # Bind the new domain, overriding previous values (unbind)
 agent.bind_user_domains([cdomain])
 
