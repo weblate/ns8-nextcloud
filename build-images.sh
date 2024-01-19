@@ -29,7 +29,7 @@ buildah add "${container}" imageroot /imageroot
 buildah add "${container}" ui/dist /ui
 # Setup the entrypoint, ask to reserve one TCP port with the label and set a rootless container
 buildah config --entrypoint=/ \
-    --label="org.nethserver.authorizations=traefik@any:routeadm" \
+    --label="org.nethserver.authorizations=traefik@any:routeadm cluster:accountconsumer" \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
     --label="org.nethserver.images=docker.io/redis:6.2.12-alpine docker.io/mariadb:10.6.16 docker.io/nginx:1.25.3-alpine ghcr.io/nethserver/nextcloud-app:${IMAGETAG}" \

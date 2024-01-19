@@ -58,6 +58,9 @@ if not domain:
     print(f'Domain not found: {cdomain}', file=sys.stderr)
     sys.exit(0)
 
+# Bind the new domain, overriding previous values (unbind)
+agent.bind_user_domains([cdomain])
+
 # we wait after nextcloud-app systemed is ready inside systemd script wait_after_nextcloud
 
 occ(["app:enable", "user_ldap"])
