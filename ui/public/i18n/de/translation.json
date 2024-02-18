@@ -1,36 +1,36 @@
 {
     "common": {
-        "work_in_progress": "Work in progress",
-        "required": "Required"
+        "work_in_progress": "in Arbeit",
+        "required": "erforderlich"
     },
     "status": {
-        "services": "Service | Services",
-        "app_images": "App image | App images",
-        "no_services": "No services",
-        "no_volumes": "No volumes",
+        "services": "Dienst | Dienste",
+        "app_images": "App-Abbild | App-Abbilder",
+        "no_services": "keine Dienste",
+        "no_volumes": "keine Volumen",
         "nextcloud_webapp": "Nextcloud Web-Anwendung",
         "not_configured": "nicht konfiguriert",
         "open_nextcloud_webapp": "Nextcloud öffnen",
         "title": "Status",
-        "app_instance": "App instance",
-        "app_volumes": "App volume | App volumes",
-        "installation_node": "Installation node",
-        "node": "Node",
-        "size": "Size",
+        "app_instance": "App-Instanz",
+        "app_volumes": "App-Volumen | App-Volumen",
+        "installation_node": "Installations-Knoten",
+        "node": "Knoten",
+        "size": "Größe",
         "name": "Name",
-        "created": "Created",
-        "mount": "Mount",
-        "no_images": "No images",
+        "created": "erstellt",
+        "mount": "Einhängepunkt",
+        "no_images": "keine Abbilder",
         "configure": "konfigurieren"
     },
     "settings": {
-        "title": "Settings",
+        "title": "Einstellungen",
         "host": "Hostname",
         "disabled": "deaktiviert",
         "enabled": "aktiviert",
         "collabora_placeholder": "Collabora-Server auswählen, leer lassen zum deaktivieren",
         "host_placeholder": "z.B.: mynextcloud.example.org",
-        "save": "Save",
+        "save": "speichern",
         "instance_configuration": "konfigurieren {instance}",
         "configuring": "Konfiguration läuft...",
         "lets_encrypt": "Let's Encrypt Zertifikat",
@@ -47,29 +47,29 @@
         "admin_password_tooltip": "Der Benutzer 'admin' ist der interne Benutzer von Nextcloud. Das Kennwort wird zur Anmeldung im Nextcloud Web-Intrerface verwendet."
     },
     "about": {
-        "title": "About"
+        "title": "Über"
     },
     "action": {
-        "get-status": "Get status",
-        "configure-module": "Configure module",
-        "get-module-info": "Get module info",
-        "get-configuration": "Get configuration"
+        "get-status": "Status abrufen",
+        "configure-module": "Modul konfigurieren",
+        "get-module-info": "Modul-Info abrufen",
+        "get-configuration": "Konfiguration abrufen"
     },
     "error": {
-        "error": "Error",
-        "validation_error": "Validation error",
-        "network_error": "Network error",
-        "network_timeout": "Network timeout",
-        "cannot_retrieve_module_info": "Cannot retrieve module info",
+        "error": "Fehler",
+        "validation_error": "fehlerhafte Überprüfung",
+        "network_error": "Netzwerk-Fehler",
+        "network_timeout": "Netzwerk -Zeitüberschreitung",
+        "cannot_retrieve_module_info": "Modul-Info kann nicht abgerufen werden",
         "password_invalid_chars": "Das Passwort darf weder Leerzeichen noch die folgenden Zeichen enthalten: ' \" =",
-        "generic_error": "Something went wrong",
-        "401": "Invalid authentication",
-        "403": "Operation not authorized",
-        "404": "Resource not found",
-        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+        "generic_error": "Etwas ist schief gegangen",
+        "401": "fehlerhafte Anmeldung",
+        "403": "Nicht zugelassen",
+        "404": "Ressource nicht gefunden",
+        "cannot_retrieve_installed_modules": "installierte Module können nicht abgerufen werden",
         "cannot_retrieve_configuration": "Konfiguration kann nicht abgerufen werden"
     },
     "task": {
-        "cannot_create_task": "Cannot create task {action}"
+        "cannot_create_task": "Aufgabe {action} nicht erstellt"
     }
 }
