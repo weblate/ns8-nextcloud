@@ -44,7 +44,9 @@
     "admin_password": "Password for user 'admin'",
     "choose_ldap_domain": "Select a user domain",
     "host_placeholder": "E.g. mynextcloud.example.org",
-    "admin_password_tooltip": "The user 'admin' is the internal administrator of Nextcloud. This password is used to authenticate the 'admin' user in the Nextcloud web interface."
+    "admin_password_tooltip": "The user 'admin' is the internal administrator of Nextcloud. This password is used to authenticate the 'admin' user in the Nextcloud web interface.",
+    "host_pattern": "Must be a valid fully qualified domain name",
+    "host_format": "Must be a valid fully qualified domain name"
   },
   "about": {
     "title": "About"
