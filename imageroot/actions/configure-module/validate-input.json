@@ -21,7 +21,8 @@
   "properties": {
     "host": {
       "description": "Host name for Nextcloud, like 'nextcloud.nethserver.org'",
-      "format": "idn-hostname",
+      "format": "hostname",
+      "pattern": "\\.",
       "type": "string",
       "minLength": 1
     },
