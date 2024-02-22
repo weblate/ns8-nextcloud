@@ -34,7 +34,7 @@
               :placeholder="$t('settings.host_placeholder')"
               v-model.trim="host"
               class="mg-bottom"
-              :invalid-message="error.host"
+              :invalid-message="$t(error.host)"
               :disabled="loadingUi"
               ref="host"
             >
@@ -45,7 +45,7 @@
               v-model.trim="password"
               v-if="!installed"
               class="mg-bottom"
-              :invalid-message="error.password"
+              :invalid-message="$t(error.password)"
               :disabled="loadingUi"
               ref="password"
             >
