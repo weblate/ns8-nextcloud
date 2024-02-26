@@ -2,7 +2,7 @@
     "error": {
         "403": "Operación no autorizada",
         "cannot_retrieve_installed_modules": "No se pueden recuperar los módulos instalados",
-        "401": "Autenticación no válida",
+        "401": "Autentificación no válida",
         "cannot_retrieve_module_info": "No se puede recuperar la información del módulo",
         "generic_error": "Algo salió mal",
         "cannot_retrieve_configuration": "No se puede recuperar la configuración",
@@ -11,7 +11,7 @@
         "password_invalid_chars": "La contraseña no puede contener espacios ni los siguientes caracteres: ' \" =",
         "404": "Recurso no encontrado",
         "network_error": "Fallo de red",
-        "validation_error": "Error de validación"
+        "validation_error": "Fallo en la validación"
     },
     "settings": {
         "collabora_host_tooltip": "Collabora Online Development Edition (CODE) es un servidor LibreOffice Online autohospedable. Te permite editar documentos de Office en un navegador web.",
