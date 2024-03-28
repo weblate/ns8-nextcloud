@@ -42,12 +42,15 @@ EOF
 
 To execute `occ` command inside an instance:
 ```
-ssh nextcloud1@localhost
-runagent occ <args>
+runagent -m nextcloud1 occ <args>
 ```
 
 You can customize FPM configuration by changing the file named `zzz_nethserver.conf` inside the state directory.
-Example: `/home/nextcloud1/.config/state/zzz_nethserver.conf`.
+Example:
+
+```
+runagent -m nextcloud1 vi zzz_nethserver.conf
+```
 
 ## Uninstall
 
