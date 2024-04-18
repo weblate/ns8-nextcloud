@@ -1,1 +1,77 @@
-{}
+{
+    "status": {
+        "no_images": "No images",
+        "app_volumes": "App volume | App volumes",
+        "app_images": "App image | App images",
+        "no_volumes": "No volumes",
+        "created": "Created",
+        "size": "Size",
+        "name": "Name",
+        "no_services": "No services",
+        "mount": "Mount",
+        "installation_node": "Installation node",
+        "node": "Node",
+        "services": "Service | Services",
+        "app_instance": "App instance",
+        "title": "Status",
+        "not_configured": "Not configured",
+        "nextcloud_webapp": "Nextcloud webapp",
+        "configure": "Configure",
+        "open_nextcloud_webapp": "Open Nextcloud"
+    },
+    "settings": {
+        "save": "Save",
+        "disabled": "Disabled",
+        "enabled": "Enabled",
+        "title": "Settings",
+        "instance_configuration": "Configure {instance}",
+        "host_format": "Must be a valid fully qualified domain name",
+        "host_pattern": "Must be a valid fully qualified domain name",
+        "configure_nextcloud": "Configure Nextcloud",
+        "collabora_placeholder": "Select a collabora server or leave empty to disable",
+        "admin_password": "Password for user 'admin'",
+        "host_invalid_type": "Invalid host name",
+        "tls_verify_collabora": "Verify TLS certificate",
+        "collabora_host": "CODE server host name",
+        "choose_ldap_domain": "Select a user domain",
+        "no_user_domain": "Nextcloud internal user database",
+        "configuring": "Configuration in progress...",
+        "host": "Host name",
+        "lets_encrypt": "Let's Encrypt certificate",
+        "domain": "User domain",
+        "collabora_host_tooltip": "Collabora Online Development Edition (CODE) is a self-hostable LibreOffice Online server. It allows you to edit office documents in a web browser.",
+        "admin_password_tooltip": "The user 'admin' is the internal administrator of Nextcloud. This password is used to authenticate the 'admin' user in the Nextcloud web interface.",
+        "host_placeholder": "E.g. mynextcloud.example.org",
+        "host_string_gte": "The host name can't be empty"
+    },
+    "common": {
+        "required": "Required",
+        "work_in_progress": "Work in progress"
+    },
+    "action": {
+        "get-module-info": "Get module info",
+        "get-status": "Get status",
+        "configure-module": "Configure module",
+        "get-configuration": "Get configuration"
+    },
+    "about": {
+        "title": "About"
+    },
+    "error": {
+        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+        "cannot_retrieve_module_info": "Cannot retrieve module info",
+        "403": "Operation not authorized",
+        "401": "Invalid authentication",
+        "generic_error": "Something went wrong",
+        "network_timeout": "Network timeout",
+        "404": "Resource not found",
+        "network_error": "Network error",
+        "error": "Error",
+        "validation_error": "Validation error",
+        "cannot_retrieve_configuration": "Cannot retrieve configuration",
+        "password_invalid_chars": "The password may not contain spaces nor the following characters: ' \" ="
+    },
+    "task": {
+        "cannot_create_task": "Cannot create task {action}"
+    }
+}
