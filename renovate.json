@@ -71,6 +71,12 @@
   "packageRules": [
     {
       "matchPackageNames": [
+        "nextcloud"
+      ],
+      "allowedVersions": "<= 28"
+    },
+    {
+      "matchPackageNames": [
         "node"
       ],
       "allowedVersions": "<= 18"
