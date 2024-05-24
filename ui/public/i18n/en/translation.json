@@ -1,77 +1,77 @@
 {
-  "common": {
-    "required": "Required",
-    "work_in_progress": "Work in progress"
-  },
-  "status": {
-    "title": "Status",
-    "app_instance": "App instance",
-    "services": "Service | Services",
-    "app_images": "App image | App images",
-    "app_volumes": "App volume | App volumes",
-    "installation_node": "Installation node",
-    "node": "Node",
-    "name": "Name",
-    "size": "Size",
-    "created": "Created",
-    "mount": "Mount",
-    "no_services": "No services",
-    "no_images": "No images",
-    "no_volumes": "No volumes",
-    "nextcloud_webapp": "Nextcloud webapp",
-    "not_configured": "Not configured",
-    "open_nextcloud_webapp": "Open Nextcloud",
-    "configure": "Configure"
-  },
-  "settings": {
-    "title": "Settings",
-    "host": "Host name",
-    "disabled": "Disabled",
-    "enabled": "Enabled",
-    "save": "Save",
-    "instance_configuration": "Configure {instance}",
-    "configuring": "Configuration in progress...",
-    "lets_encrypt": "Let's Encrypt certificate",
-    "domain": "User domain",
-    "no_user_domain": "Nextcloud internal user database",
-    "host_string_gte": "The host name can't be empty",
-    "configure_nextcloud": "Configure Nextcloud",
-    "host_invalid_type": "Invalid host name",
-    "collabora_host":"CODE server host name",
-    "collabora_host_tooltip": "Collabora Online Development Edition (CODE) is a self-hostable LibreOffice Online server. It allows you to edit office documents in a web browser.",
-    "tls_verify_collabora":"Verify TLS certificate",
-    "collabora_placeholder": "Select a collabora server or leave empty to disable",
-    "admin_password": "Password for user 'admin'",
-    "choose_ldap_domain": "Select a user domain",
-    "host_placeholder": "E.g. mynextcloud.example.org",
-    "admin_password_tooltip": "The user 'admin' is the internal administrator of Nextcloud. This password is used to authenticate the 'admin' user in the Nextcloud web interface.",
-    "host_pattern": "Must be a valid fully qualified domain name",
-    "host_format": "Must be a valid fully qualified domain name"
-  },
-  "about": {
-    "title": "About"
-  },
-  "task": {
-    "cannot_create_task": "Cannot create task {action}"
-  },
-  "action": {
-    "get-status": "Get status",
-    "get-configuration": "Get configuration",
-    "configure-module": "Configure module",
-    "get-module-info": "Get module info"
-  },
-  "error": {
-    "error": "Error",
-    "generic_error": "Something went wrong",
-    "validation_error": "Validation error",
-    "network_error": "Network error",
-    "network_timeout": "Network timeout",
-    "401": "Invalid authentication",
-    "403": "Operation not authorized",
-    "404": "Resource not found",
-    "cannot_retrieve_module_info": "Cannot retrieve module info",
-    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
-    "cannot_retrieve_configuration": "Cannot retrieve configuration",
-    "password_invalid_chars": "The password may not contain spaces nor the following characters: ' \" ="
-  }
+    "common": {
+        "required": "Required",
+        "work_in_progress": "Work in progress"
+    },
+    "status": {
+        "title": "Status",
+        "app_instance": "App instance",
+        "services": "Service | Services",
+        "app_images": "App image | App images",
+        "app_volumes": "App volume | App volumes",
+        "installation_node": "Installation node",
+        "node": "Node",
+        "name": "Name",
+        "size": "Size",
+        "created": "Created",
+        "mount": "Mount",
+        "no_services": "No services",
+        "no_images": "No images",
+        "no_volumes": "No volumes",
+        "nextcloud_webapp": "Nextcloud webapp",
+        "not_configured": "Not configured",
+        "open_nextcloud_webapp": "Open Nextcloud",
+        "configure": "Configure"
+    },
+    "settings": {
+        "title": "Settings",
+        "host": "Host name",
+        "disabled": "Disabled",
+        "enabled": "Enabled",
+        "save": "Save",
+        "instance_configuration": "Configure {instance}",
+        "configuring": "Configuration in progress...",
+        "lets_encrypt": "Let's Encrypt certificate",
+        "domain": "User domain",
+        "no_user_domain": "Nextcloud internal user database",
+        "host_string_gte": "The host name can't be empty",
+        "configure_nextcloud": "Configure Nextcloud",
+        "host_invalid_type": "Invalid host name",
+        "collabora_host": "CODE server host name",
+        "collabora_host_tooltip": "Collabora Online Development Edition (CODE) is a self-hostable LibreOffice Online server. It allows you to edit office documents in a web browser.",
+        "tls_verify_collabora": "Verify TLS certificate",
+        "collabora_placeholder": "Select a collabora server or leave empty to disable",
+        "admin_password": "Password for user 'admin'",
+        "choose_ldap_domain": "Select a user domain",
+        "host_placeholder": "E.g. mynextcloud.example.org",
+        "admin_password_tooltip": "The user 'admin' is the internal administrator of Nextcloud. This password is used to authenticate the 'admin' user in the Nextcloud web interface.",
+        "host_pattern": "Must be a valid fully qualified domain name",
+        "host_format": "Must be a valid fully qualified domain name"
+    },
+    "about": {
+        "title": "About"
+    },
+    "task": {
+        "cannot_create_task": "Cannot create task {action}"
+    },
+    "action": {
+        "get-status": "Get status",
+        "get-configuration": "Get configuration",
+        "configure-module": "Configure module",
+        "get-module-info": "Get module info"
+    },
+    "error": {
+        "error": "Error",
+        "generic_error": "Something went wrong",
+        "validation_error": "Validation error",
+        "network_error": "Network error",
+        "network_timeout": "Network timeout",
+        "401": "Invalid authentication",
+        "403": "Operation not authorized",
+        "404": "Resource not found",
+        "cannot_retrieve_module_info": "Cannot retrieve module info",
+        "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+        "cannot_retrieve_configuration": "Cannot retrieve configuration",
+        "password_invalid_chars": "The password may not contain spaces nor the following characters: ' \" ="
+    }
 }
