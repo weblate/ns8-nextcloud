@@ -58,10 +58,7 @@ try:
 except:
     config['running'] = False
 
-# verify if collabora is installed on the cluster
-# propose in UI to link this nextcloud to collabora
 rdb = agent.redis_connect(privileged=False)
-config["is_collabora"] = True if rdb.get('cluster/default_instance/collabora') else False
 # retrieve all url stored in redis for all collabora instances
 array_collabora = []
 for c in rdb.scan_iter('module/collabora*/environment'):
@@ -69,7 +66,13 @@ for c in rdb.scan_iter('module/collabora*/environment'):
     url = rdb.hget(c, 'TRAEFIK_HOST')
     if url:
         array_collabora.append({"name": name, "label": name+' ('+ url+')', "value": url})
+
 config["array_collabora"] = array_collabora
+
+# verify if collabora is installed on the cluster
+# propose in UI to link this nextcloud to collabora
+config["is_collabora"] = True if array_collabora else False
+
 # The first load of nextcloud json is empty of tls_verify_collabora
 # let's do a default value
 if "tls_verify_collabora" not in config:
