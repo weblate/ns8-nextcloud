@@ -33,7 +33,6 @@ events {
     worker_connections  1024;
 }
 
-
 http {
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
@@ -61,6 +60,12 @@ http {
 
     upstream php-handler {
         server 127.0.0.1:9000;
+    }
+
+    # Set the `immutable` cache control options only for assets with a cache busting `v` argument
+    map $arg_v $asset_immutable {
+        "" "";
+        default ", immutable";
     }
 
     server {
@@ -102,10 +107,11 @@ http {
         # Remove X-Powered-By, which is an information leak
         fastcgi_hide_header X-Powered-By;
 
-        # Set .mjs that is missing in the mime.types
+        # Set .mjs and wasm that is missing in the mime.types
         include mime.types;
         types {
             text/javascript mjs;
+            application/wasm wasm;
         }
 
         # Path to the root of your installation
@@ -185,8 +191,17 @@ http {
             fastcgi_request_buffering off;
         }
 
-        location ~ \.(?:css|js|mjs|svg|gif)$ {
+        # Serve static files
+        location ~ \.(?:css|js|mjs|svg|gif|ico|jpg|png|webp|wasm|tflite|map|ogg|flac)$ {
             try_files $uri /index.php$request_uri;
+            # HTTP response headers borrowed from Nextcloud `.htaccess`
+            add_header Cache-Control                     "public, max-age=15778463$asset_immutable";
+            add_header Referrer-Policy                   "no-referrer"       always;
+            add_header X-Content-Type-Options            "nosniff"           always;
+            add_header X-Frame-Options                   "SAMEORIGIN"        always;
+            add_header X-Permitted-Cross-Domain-Policies "none"              always;
+            add_header X-Robots-Tag                      "noindex, nofollow" always;
+            add_header X-XSS-Protection                  "1; mode=block"     always;
             expires 6M;         # Cache-Control policy borrowed from `.htaccess`
             access_log off;     # Optional: Don't log access to assets
         }
