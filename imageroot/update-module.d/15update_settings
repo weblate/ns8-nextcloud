@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#
+# Copyright (C) 2024 Nethesis S.r.l.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+# added for nextcloud 28 (1.0.8)
+# set trusted proxies to avoid warnings
+occ config:system:set trusted_proxies 0  --value='127.0.0.1'
+
+# set maintenance window start (maintenance cron will run at 1:00)
+occ config:system:set maintenance_window_start --value=1 --type=integer
+
+# with nextcloud 28 the logreader app is compatible only with `file` log type
+# see https://github.com/nextcloud/server/issues/45517
+#  Failed to get an iterator for log entries: Logreader application only supports "file" log_type
+occ app:disable logreader
+# added for nextcloud 28 (1.0.8)
+# end

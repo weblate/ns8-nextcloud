@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#
+# Copyright (C) 2024 Nethesis S.r.l.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+# with nextcloud 28 the logreader app is compatible only with `file` log type
+# see https://github.com/nextcloud/server/issues/45517
+#  Failed to get an iterator for log entries: Logreader application only supports "file" log_type
+occ app:disable logreader
