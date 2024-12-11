@@ -35,7 +35,7 @@ events {
 
 http {
     include       /etc/nginx/mime.types;
-    # Set .mjs and wasm that is missing in the mime.types
+    # Set .mjs that is missing in the mime.types
     types {
         text/javascript mjs;
     }
