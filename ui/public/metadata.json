@@ -1,9 +1,9 @@
 {
   "name": "Nextcloud",
-  "upstream_name": "Nextcloud 28 Hub 7",
+  "upstream_name": "Nextcloud 29",
   "description": {
-    "en": "Nextcloud Hub is an integrated Open Source content collaboration platform",
-    "it": "Nextcloud Hub è una piattaforma integrata Open Source per la collaborazione sui contenuti"
+    "en": "Nextcloud is an integrated Open Source content collaboration platform",
+    "it": "Nextcloud è una piattaforma integrata Open Source per la collaborazione sui contenuti"
   },
   "categories": [
     "collaboration"
